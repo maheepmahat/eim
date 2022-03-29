@@ -22,7 +22,7 @@ function HomeComponent({numData, setCurrUserId}) {
         fetch("http://localhost:5000/api/main")
         .then(res => res.json())
         .then(json_data =>set_json_data(json_data))
-    }, [])
+    }, []) 
 
     // console.log(json_data);
 
@@ -33,7 +33,6 @@ function HomeComponent({numData, setCurrUserId}) {
     console.log(rows);
     return (
         <div className="App">
-            <div> {json_data.length == 0 ? "" : json_data[2].title}</div> 
             <SongSelector songList={json_data} setRows={setRows} rows={flattenArrayOfJson(subject_data)} />
             <DataTable rows={rows} setCurrUserId={setCurrUserId} />
         </div>
