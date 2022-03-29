@@ -20,7 +20,7 @@ export default function DataTable({rows, setCurrUserId}) {
                         variant="outlined"
                         color="primary"
                         size="small"
-                        style={{marginLeft: 16}}
+                        // style={{marginLeft: 16}}
                     >
                         <Link
                             to={`/id=${params.value}`}
@@ -78,7 +78,7 @@ export default function DataTable({rows, setCurrUserId}) {
 
         },
         {
-            field: 'answers.media.0',
+            field: 'media.0',
             headerName: 'Media',
             type: 'string',
             valueFormatter: (params) => {

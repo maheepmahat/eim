@@ -25,15 +25,10 @@ function HomeComponent({numData, setCurrUserId}) {
     }, [])
 
     // console.log(json_data);
+    // console.log(rows);
 
-
-    // const [rows, setRows] = useState(flattenArrayOfJson(data))
-    console.log(flattenArrayOfJson(data))
-
-    console.log(rows);
-    return (
+   return (
         <div className="App">
-            <div> {json_data.length == 0 ? "" : json_data[2].title}</div> 
             <SongSelector songList={json_data} setRows={setRows} rows={flattenArrayOfJson(subject_data)} />
             <DataTable rows={rows} setCurrUserId={setCurrUserId} />
         </div>
