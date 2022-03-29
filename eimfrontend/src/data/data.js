@@ -316,11 +316,12 @@ export const filterDataBasedOnSong = (song_id, rows) => {
     }
 
     let newData = rows.filter((item) => {
-
+        console.log(song_id);
+        console.log(item);
         switch(song_id){
-            case item['answers.media.0']:
-            case item['answers.media.1']:
-            case item['answers.media.2']:
+            case item['media.0']:
+            case item['media.1']:
+            case item['media.2']:
                 return true;
             default:
                 return false;
