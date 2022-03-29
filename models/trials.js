@@ -27,6 +27,8 @@ const AnswersSchema = new Schema({
     hairing_impairments = Boolean,
     age = moongose.Types.Decimal128
 });*/
+
+const opts = { toJSON: { virtuals: true } };
 const TrialsSchema = new Schema({
     /*metadata : {type: String},
     answers : {type: String},
@@ -37,7 +39,7 @@ const TrialsSchema = new Schema({
     random : {type: mongoose.Types.Decimal128},
     experiment : {type: mongoose.ObjectId},
     signals : {type: String}*/
-});
+}, opts);
 
 // Create model for the data
 const Trials = mongoose.model('trials', TrialsSchema);
