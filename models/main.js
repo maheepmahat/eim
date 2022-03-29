@@ -4,7 +4,6 @@ const Schema = mongoose.Schema;
 // Create schema for the data
 const MediaSchema = new Schema({
     title: {type: String},
-
     title : {type: String},
     label : {type: String},
     has_lyrics : {type: Boolean},
