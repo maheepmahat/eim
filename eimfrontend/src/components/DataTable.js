@@ -92,7 +92,7 @@ export default function DataTable({rows, setCurrUserId}) {
     ];
 
 
-    console.log(rows)
+    // console.log(rows)
     return (
         <>
             <div style={{ height: 800, width: '100%'}}>
