@@ -12,26 +12,26 @@ import SingleUserData from "./SingleUserData";
 export default function DataTable({rows, setCurrUserId}) {
 
     const columns = [
-        {
-            field: 'id', headerName: 'ID',
-            renderCell: (params) => (
-                <strong>
-                    <Button
-                        variant="outlined"
-                        color="primary"
-                        size="small"
-                        style={{marginLeft: 16}}
-                    >
-                        <Link
-                            to={`/id=${params.value}`}
-                            onClick={() => setCurrUserId(params.value)}
-                            style={{textDecoration: 'none'}}
-                        >
-                            {params.value}
-                        </Link>
-                    </Button>
-                </strong>
-            )},
+        // {
+            // field: '_id', headerName: 'ID',
+            // renderCell: (params) => (
+            //     <strong>
+            //         <Button
+            //             variant="outlined"
+            //             color="primary"
+            //             size="small"
+            //             style={{marginLeft: 16}}
+            //         >
+            //             <Link
+            //                 to={`/id=${params.value}`}
+            //                 onClick={() => setCurrUserId(params.value)}
+            //                 style={{textDecoration: 'none'}}
+            //             >
+            //                 {params.value}
+            //             </Link>
+            //         </Button>
+            //     </strong>
+            // )},
         {
             field: 'answers.age',
             headerName: 'Age',
@@ -92,7 +92,7 @@ export default function DataTable({rows, setCurrUserId}) {
     ];
 
 
-    console.log(rows)
+    // console.log(rows)
     return (
         <>
             <div style={{ height: 800, width: '100%'}}>
@@ -102,6 +102,7 @@ export default function DataTable({rows, setCurrUserId}) {
                     rowsPerPageOptions={[5, 10, 20, 50, 100]}
                     checkboxSelection
                     disableSelectionOnClick
+                    id="_id"
                     components={{
                         Toolbar: GridToolbar,
                     }}
