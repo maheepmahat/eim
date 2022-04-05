@@ -22,10 +22,7 @@ function HomeComponent({numData, setCurrUserId}) {
         fetch("http://localhost:5000/api/main")
         .then(res => res.json())
         .then(json_data =>set_json_data(json_data))
-    }, [])
-
-    // console.log(json_data);
-    // console.log(rows);
+    }, []) 
 
    return (
         <div className="App">
