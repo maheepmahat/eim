@@ -24,9 +24,6 @@ function HomeComponent({numData, setCurrUserId}) {
         .then(json_data =>set_json_data(json_data))
     }, []) 
 
-    // console.log(json_data);
-    // console.log(rows);
-
    return (
         <div className="App">
             <SongSelector songList={json_data} setRows={setRows} rows={flattenArrayOfJson(subject_data)} />
