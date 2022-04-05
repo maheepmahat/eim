@@ -15,7 +15,7 @@ router.get('/trials', (req, res, next) => {
   Trials.find({})
     .select('answers media')
     .select('-answers.ratings')
-    .limit(25)
+    .limit(1000)
     .then((data) => res.json(data))
     .catch(next);
 });
