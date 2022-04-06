@@ -13,14 +13,14 @@ export default function DataTable({rows, setCurrUserId}) {
 
     const columns = [
         {
-            field: 'id', headerName: 'ID',
+            field: 'id', headerName: 'User',
+            flex: 1,
             renderCell: (params) => (
                 <strong>
                     <Button
                         variant="outlined"
                         color="primary"
                         size="small"
-                        // style={{marginLeft: 16}}
                     >
                         <Link
                             to={`/id=${params.value}`}
@@ -34,30 +34,35 @@ export default function DataTable({rows, setCurrUserId}) {
             )},
         {
             field: 'answers.age',
+            flex: 1,
             headerName: 'Age',
             type: 'number',
             editable: false
 
         },  {
             field: 'answers.sex',
+            flex: 1,
             headerName: 'Sex',
             type: 'string',
             editable: false
 
         },{
             field: 'answers.dob',
+            flex: 1,
             headerName: 'DOB',
             type: 'date',
             editable: false
 
         },{
             field: 'answers.musical_background',
+            flex: 1,
             headerName: 'Musical Background',
             type: 'boolean',
             editable: false
 
         },{
             field: 'answers.visual_impairments',
+            flex: 1,
             headerName: 'Visual Impairments',
             type: 'boolean',
             editable: false
@@ -65,6 +70,7 @@ export default function DataTable({rows, setCurrUserId}) {
         },
         {
             field: 'answers.hearing_impairments',
+            flex: 1,
             headerName: 'Hearing Impairments',
             type: 'boolean',
             editable: false
@@ -72,21 +78,23 @@ export default function DataTable({rows, setCurrUserId}) {
         },
         {
             field: 'answers.nationality',
+            flex: 1,
             headerName: 'Nationality',
             type: 'string',
             editable: false
 
         },
-        {
-            field: 'media.0',
-            headerName: 'Media',
-            type: 'string',
-            valueFormatter: (params) => {
-                return params.value
-            },
-            editable: false
+        // {
+        //     field: 'media.0',
+        //     flex: 1,
+        //     headerName: 'Media',
+        //     type: 'string',
+        //     valueFormatter: (params) => {
+        //         return params.value
+        //     },
+        //     editable: false
 
-        },
+        // },
 
 
     ];
@@ -96,7 +104,7 @@ export default function DataTable({rows, setCurrUserId}) {
     console.log('columns' + columns)
     return (
         <>
-            <div style={{ height: 800, width: '130%'}}>
+            <div style={{ height: 800, width: '100%'}}>
                 <DataGrid
                     rows={rows}
                     columns={columns}
