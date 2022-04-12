@@ -15,8 +15,16 @@ function SingleUserData(props){
     }, [])
 
     let found = subject_data.filter(function(item) { return item._id === props.id; });
-    console.log('found', found[0]);
+    //console.log('found', found[0]);
 
+    const [csv_file, set_csv_file] = useState([]);
+    useEffect(() =>{
+        fetch("http://localhost:5000/api/trials/media")
+        .then(csv_file =>{set_csv_file(csv_file)}); 
+    },[])
+
+    console.log("csv_file var" + csv_file);
+    console.log("type of " + typeof csv_file);
 
     return (
         <div className="App">

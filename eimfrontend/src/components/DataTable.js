@@ -101,10 +101,10 @@ export default function DataTable({rows, setCurrUserId}) {
 
 
     // console.log(rows)
-    console.log('columns' + columns)
+    //console.log('columns' + columns)
     return (
         <>
-            <div style={{ height: 800, width: '100%'}}>
+            <div style={{ height: 200, width: '100%'}}>
                 <DataGrid
                     rows={rows}
                     columns={columns}
