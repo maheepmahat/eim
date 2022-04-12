@@ -22,7 +22,7 @@ router.get('/trials', (req, res, next) => {
   // This will return  the data
   Trials.find({})
     .select('answers media')
-    .select('-answers.ratings')
+    // .select('-answers.ratings')
     .limit(100)
     .then((data) => res.json(data))
     .catch(next);

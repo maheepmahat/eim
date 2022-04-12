@@ -9,7 +9,7 @@ import SingleUserData from "./SingleUserData";
 
 
 
-export default function DataTable({rows, setCurrUserId}) {
+export default function DataTable({rows, setCurrUserId, tableHeight}) {
 
     const columns = [
         {
@@ -104,7 +104,7 @@ export default function DataTable({rows, setCurrUserId}) {
     //console.log('columns' + columns)
     return (
         <>
-            <div style={{ height: 200, width: '100%'}}>
+            <div style={{ height: tableHeight, width: '100%'}}>
                 <DataGrid
                     rows={rows}
                     columns={columns}
