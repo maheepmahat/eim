@@ -97,9 +97,9 @@ function SingleUserData(props) {
             <br /><br />
 
             
-            <audio controls>
+            {/* <audio controls>
             <source src={audioElement} type="audio/wav"> </source>
-            </audio> 
+            </audio> */} 
    
 
 
