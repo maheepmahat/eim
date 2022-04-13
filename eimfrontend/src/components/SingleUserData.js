@@ -61,20 +61,48 @@ function SingleUserData(props) {
         });
     }, [])
 
+    const [audio_file, set_audio_file] = useState([]);
+    useEffect(() => {
+        readRemoteFile("http://localhost:5000/api/song", {
+            worker: true,
+            complete: (results) => {
+                console.log(Object.keys(results.data))
+                set_audio_file(results.data);     
+            },
+          /*   dynamicTyping: true,
+            header: true */
+        });
+    }, [])
     // console.log(csv_file)
+
+    var audioElement = new Audio(audio_file);
 
 
     return (
         <div className="App">
-            {/* <h1> User with id of {props.id} </h1>  */}
+            { <h1> User with id of {props.id} </h1>  }
+
+            <DataTable rows={flattenArrayOfJson(found)} setCurrUserId={props.setCurrUserId} tableHeight={200} />
+            <br />
+            <br />
+            <br />
+            <h1>User's EDA and HR data against Time is shown below</h1> <br />
             <LineChart width={500} height={300} data={csv_file}>
-                <XAxis dataKey="timestamps" />
+                <XAxis dataKey="timestamps" /> 
                 <YAxis />
                 <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
                 <Line type="monotone" dataKey="eda_raw" stroke="#8884d8" />
                 <Line type="monotone" dataKey="hr" stroke="#82ca9d" />
             </LineChart>
-            <DataTable rows={flattenArrayOfJson(found)} setCurrUserId={props.setCurrUserId} tableHeight={200} />
+            <br /><br />
+
+            
+            <audio controls>
+            <source src={audioElement} type="audio/wav"> </source>
+            </audio> 
+   
+
+
         </div>
     )
 }

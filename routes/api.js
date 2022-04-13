@@ -69,16 +69,46 @@ router.get('/signals', (req, res, next) => {
 
 });
 
-/*router.get('/main', function(req, res){
-  Main.find({})
-    .exec(function(err,genres) {
-      if(err) {
-        res.send('error has occured');
-      }
-      else {
-        res.json(genres);
-      }
-    });
-  });*/
+router.get('/song', (req, res, next) => {
+  let gfs, gridFSBucket;
+  
+
+  gfs = Grid(mongoose.connection.db, mongoose.mongo);
+  gfs.collection('media');
+
+  gfs.files.find({_id:mongoose.Types.ObjectId("537e47c091b038e5c24cf250")}).toArray((err,file) =>{
+
+  if (err) {
+            // report the error
+            console.log(err);
+        } 
+        else {
+          console.log("file length " + file.length);
+          console.log("file =" + file);
+            // detect the content type and set the appropriate response headers.
+            let mimeType = file.contentType;
+            console.log("mimeType " + mimeType);
+            if (!mimeType) {
+                mimeType = mime.getType(file[0].filename);
+            }
+            console.log("mimeType 2" + mimeType);
+
+            res.set({
+                'Content-Type': mimeType,
+                'Content-Disposition': 'attachment; filename=' + file[0].filename
+            });
+
+            const readStream = gfs.createReadStream({_id:file[0]._id})
+            readStream.on('error', err => {
+                // report stream error
+                console.log(err);
+            });
+            // the response will be the file itself.
+            readStream.pipe(res);
+        }
+      });
+
+});
+
 
 module.exports = router;
