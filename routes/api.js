@@ -27,15 +27,27 @@ router.get('/trials', (req, res, next) => {
     .then((data) => res.json(data))
     .catch(next);
 });
+router.get('/signalData', (req, res, next) => {
+  // This will return  the data
+  Signals.find({})
+    .select('answers media')
+    // .select('-answers.ratings')
+    .limit(100)
+    .then((data) => res.json(data))
+    .catch(next);
+});
 
-router.get('/signals', (req, res, next) => {
+router.get('/signals/:Id', (req, res, next) => {
   let gfs, gridFSBucket;
   
-
+  console.log("id received is = " + req.params.Id);
+  var user_id = req.params.Id + ".csv";
   gfs = Grid(mongoose.connection.db, mongoose.mongo);
   gfs.collection('signals');
+  console.log("user_id var = " + user_id + "type = " + typeof(user_id));
 
-  gfs.files.find({_id:mongoose.Types.ObjectId("56b90afc83a7352da11a3f33")},{ metadata:{location:"bergen"} }).toArray((err,file) =>{
+  // gfs.files.find({_id:mongoose.Types.ObjectId(user_id)},{ metadata:{location:"bergen"} }).toArray((err,file) =>{
+     gfs.files.find({filename:"5410edbd08ad6ee3090e20c6.csv"},{ metadata:{location:"bergen"} }).toArray((err,file) =>{
 
   if (err) {
             // report the error
@@ -76,7 +88,7 @@ router.get('/song', (req, res, next) => {
   gfs = Grid(mongoose.connection.db, mongoose.mongo);
   gfs.collection('media');
 
-  gfs.files.find({_id:mongoose.Types.ObjectId("537e47c091b038e5c24cf250")}).toArray((err,file) =>{
+  gfs.files.find({_id:mongoose.Types.ObjectId("537e4b1e050992e6b6107bce")}).toArray((err,file) =>{
 
   if (err) {
             // report the error
