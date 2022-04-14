@@ -3,6 +3,7 @@ import { createFakeData, flattenArrayOfJson, songList } from "../data/data";
 import DataTable from "./DataTable";
 import { usePapaParse } from 'react-papaparse';
 import { LineChart, XAxis, YAxis, CartesianGrid, Line } from 'recharts'
+
 function SingleUserData(props) {
 
     const { readRemoteFile } = usePapaParse();
@@ -43,7 +44,16 @@ function SingleUserData(props) {
      */
     const [csv_file, set_csv_file] = useState([]);
     useEffect(() => {
-        readRemoteFile("http://localhost:5000/api/signals", {
+        readRemoteFile("http://localhost:5000/api/signals/"+props.id, {
+            method: 'GET',
+            headers:{
+                "Accept":"application/json",
+                "Content-Type":"application/json",
+                "Origin": "*"
+            },
+            body: JSON.stringify({
+                Id: props.id,
+            }),
             worker: true,
             complete: (results) => {
                 // reformatted = []
@@ -76,7 +86,15 @@ function SingleUserData(props) {
     // console.log(csv_file)
 
     var audioElement = new Audio(audio_file);
-
+    const songRef = React.useRef();
+    const controlId = "use-uuid-if-multiple-on-page";
+    useEffect(() => {
+        const audioControl = document.querySelector(`#${controlId}`);
+        if(audioControl) {
+            //Register the changed source
+            audioControl.load();
+        }
+    })
 
     return (
         <div className="App">
@@ -96,12 +114,12 @@ function SingleUserData(props) {
             </LineChart>
             <br /><br />
 
+{/*             <audio ref= {songRef} src="./H001.wav" controls autoPlay/>
+ */}            
+            <audio controls>
+            <source src="http://localhost:5000/api/song" type="audio/wav" />
+            </audio>
             
-            {/* <audio controls>
-            <source src={audioElement} type="audio/wav"> </source>
-            </audio> */} 
-   
-
 
         </div>
     )
