@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { createFakeData, flattenArrayOfJson, songList } from "../data/data";
 import DataTable from "./DataTable";
 import { usePapaParse } from 'react-papaparse';
-import { LineChart, XAxis, YAxis, CartesianGrid, Line } from 'recharts'
+import { LineChart, XAxis, YAxis, CartesianGrid, Line, Tooltip } from 'recharts'
 function SingleUserData(props) {
 
     const { readRemoteFile } = usePapaParse();
@@ -86,11 +86,13 @@ function SingleUserData(props) {
             <br />
             <br />
             <br />
-            <h1>User's EDA and HR data against Time is shown below</h1> <br />
+            <h5>User's EDA and HR data against Time is shown below</h5> <br />
+            
             <LineChart width={500} height={300} data={csv_file}>
                 <XAxis dataKey="timestamps" /> 
                 <YAxis />
                 <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
+                <Tooltip />
                 <Line type="monotone" dataKey="eda_raw" stroke="#8884d8" />
                 <Line type="monotone" dataKey="hr" stroke="#82ca9d" />
             </LineChart>
