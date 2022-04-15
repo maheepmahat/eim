@@ -53,15 +53,13 @@ function SingleUserData(props) {
             body: JSON.stringify({
                 Id: props.id,
             }),
+            // step: (results, parser) => {
+            // if(!results.data)
+            //    results.data = {timestamps: results.data.timestamps, eda: results.data.eda_filtered,  hr: results.data.hr}
+            // },
             worker: true,
             complete: (results) => {
-                // reformatted = []
-                // results.data.forEach((d) => {
-                //     let temp = {
-                //         name: d.
-                //     }
-                // })
-                console.log(Object.keys(results.data))
+                // console.log(Object.keys(results.data))
                 // set_csv_file(results.data);     
                 set_csv_file(results.data.slice(0, 200));
             },
@@ -75,7 +73,7 @@ function SingleUserData(props) {
         readRemoteFile("http://localhost:5000/api/song", {
             worker: true,
             complete: (results) => {
-                console.log(Object.keys(results.data))
+                // console.log(Object.keys(results.data))
                 set_audio_file(results.data);     
             },
           /*   dynamicTyping: true,
@@ -110,7 +108,13 @@ function SingleUserData(props) {
                 <YAxis />
                 <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
                 <Tooltip />
-                <Line type="monotone" dataKey="eda_raw" stroke="#8884d8" />
+                <Line type="monotone" dataKey="eda_filtered" stroke="#8884d8" />
+            </LineChart>
+            <LineChart width={500} height={300} data={csv_file}>
+                <XAxis dataKey="timestamps" /> 
+                <YAxis />
+                <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
+                <Tooltip />
                 <Line type="monotone" dataKey="hr" stroke="#82ca9d" />
             </LineChart>
             <br /><br />

@@ -104,8 +104,9 @@ export default function DataTable({rows, setCurrUserId, tableHeight}) {
     //console.log('columns' + columns)
     return (
         <>
-            <div style={{ height: tableHeight, width: '100%'}}>
+            <div style={{ height: tableHeight }} >
                 <DataGrid
+                    sx={{ m: 8 }}
                     rows={rows}
                     columns={columns}
                     rowsPerPageOptions={[5, 10, 20, 50, 100]}
