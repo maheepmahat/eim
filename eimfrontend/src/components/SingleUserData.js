@@ -4,6 +4,7 @@ import DataTable from "./DataTable";
 import { usePapaParse } from 'react-papaparse';
 import { LineChart, XAxis, YAxis, CartesianGrid, Line } from 'recharts'
 
+var file_id = ["5410edbd08ad6ee3090e20c6", "5410edbd08ad6ee3090e20c6", "5410edbd08ad6ee3090e20c6"];
 function SingleUserData(props) {
 
     const { readRemoteFile } = usePapaParse();
@@ -18,18 +19,18 @@ function SingleUserData(props) {
     }, [])
 
     let found = subject_data.filter(function (item) { return item._id === props.id; });
-    //console.log('found', found[0]);
-
-    // const [csv_file, set_csv_file] = useState([]);
-    // useEffect(() =>{
-    //     fetch("http://localhost:5000/api/trials/media")
-    //     .then(csv_file =>{set_csv_file(csv_file)}); 
-    // },[])
-
-    // console.log("csv_file var" + csv_file);
-    // console.log("type of " + typeof csv_file);
-
-
+    const [signal_id, setSignal_Id] = useState();
+    useEffect(() => {
+        fetch("http://localhost:5000/api/signalData/"+props.id)
+        .then(res => res.json())
+        .then(signal_id =>setSignal_Id(signal_id))
+    }, [])
+    if(signal_id !== undefined) {
+    console.log("signal id is = " + signal_id[0]['_id']);
+    file_id[0] = signal_id[0]['_id'];
+    file_id[1] = signal_id[1]['_id'];
+    file_id[2] = signal_id[2]['_id'];
+    }
     /**
      *  Format for each array object
      * {
@@ -42,29 +43,38 @@ function SingleUserData(props) {
      * timestamps: 47982 -- x axis
      * }
      */
-    const [csv_file, set_csv_file] = useState([]);
+    //console.log("file_id is " + file_id);
+    const [csv_file1, set_csv_file1] = useState([]);
     useEffect(() => {
-        readRemoteFile("http://localhost:5000/api/signals/"+props.id, {
-            method: 'GET',
-            headers:{
-                "Accept":"application/json",
-                "Content-Type":"application/json",
-                "Origin": "*"
-            },
-            body: JSON.stringify({
-                Id: props.id,
-            }),
+        readRemoteFile("http://localhost:5000/api/signals/"+file_id[0], {
             worker: true,
             complete: (results) => {
-                // reformatted = []
-                // results.data.forEach((d) => {
-                //     let temp = {
-                //         name: d.
-                //     }
-                // })
                 console.log(Object.keys(results.data))
-                // set_csv_file(results.data);     
-                set_csv_file(results.data.slice(0, 200));
+                set_csv_file1(results.data.slice(0, 200));
+            },
+            dynamicTyping: true,
+            header: true
+        });
+    }, [])
+    const [csv_file2, set_csv_file2] = useState([]);
+    useEffect(() => {
+        readRemoteFile("http://localhost:5000/api/signals/"+file_id[1], {
+            worker: true,
+            complete: (results) => {
+                console.log(Object.keys(results.data))
+                set_csv_file2(results.data.slice(0, 200));
+            },
+            dynamicTyping: true,
+            header: true
+        });
+    }, [])
+    const [csv_file3, set_csv_file3] = useState([]);
+    useEffect(() => {
+        readRemoteFile("http://localhost:5000/api/signals/"+file_id[2], {
+            worker: true,
+            complete: (results) => {
+                console.log(Object.keys(results.data))
+                set_csv_file3(results.data.slice(0, 200));
             },
             dynamicTyping: true,
             header: true
@@ -79,22 +89,9 @@ function SingleUserData(props) {
                 console.log(Object.keys(results.data))
                 set_audio_file(results.data);     
             },
-          /*   dynamicTyping: true,
-            header: true */
         });
     }, [])
-    // console.log(csv_file)
-
-    var audioElement = new Audio(audio_file);
-    const songRef = React.useRef();
-    const controlId = "use-uuid-if-multiple-on-page";
-    useEffect(() => {
-        const audioControl = document.querySelector(`#${controlId}`);
-        if(audioControl) {
-            //Register the changed source
-            audioControl.load();
-        }
-    })
+   
 
     return (
         <div className="App">
@@ -105,7 +102,7 @@ function SingleUserData(props) {
             <br />
             <br />
             <h1>User's EDA and HR data against Time is shown below</h1> <br />
-            <LineChart width={500} height={300} data={csv_file}>
+            <LineChart width={1200} height={300} data={csv_file1}>
                 <XAxis dataKey="timestamps" /> 
                 <YAxis />
                 <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
@@ -113,7 +110,22 @@ function SingleUserData(props) {
                 <Line type="monotone" dataKey="hr" stroke="#82ca9d" />
             </LineChart>
             <br /><br />
-
+            <LineChart width={1200} height={300} data={csv_file2}>
+                <XAxis dataKey="timestamps" /> 
+                <YAxis />
+                <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
+                <Line type="monotone" dataKey="eda_raw" stroke="#8884d8" />
+                <Line type="monotone" dataKey="hr" stroke="#82ca9d" />
+            </LineChart>
+            <br /><br />
+            <LineChart width={1200} height={300} data={csv_file3}>
+                <XAxis dataKey="timestamps" /> 
+                <YAxis />
+                <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
+                <Line type="monotone" dataKey="eda_raw" stroke="#8884d8" />
+                <Line type="monotone" dataKey="hr" stroke="#82ca9d" />
+            </LineChart>
+            <br /><br />
 {/*             <audio ref= {songRef} src="./H001.wav" controls autoPlay/>
  */}            
             <audio controls>
