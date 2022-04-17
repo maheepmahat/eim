@@ -84,28 +84,14 @@ export default function DataTable({rows, setCurrUserId, tableHeight}) {
             editable: false
 
         },
-        // {
-        //     field: 'media.0',
-        //     flex: 1,
-        //     headerName: 'Media',
-        //     type: 'string',
-        //     valueFormatter: (params) => {
-        //         return params.value
-        //     },
-        //     editable: false
-
-        // },
-
-
+        
     ];
 
-
-    // console.log(rows)
-    //console.log('columns' + columns)
     return (
         <>
-            <div style={{ height: tableHeight, width: '100%'}}>
+            <div style={{ height: tableHeight }} >
                 <DataGrid
+                    sx={{ m: 8 }}
                     rows={rows}
                     columns={columns}
                     rowsPerPageOptions={[5, 10, 20, 50, 100]}

@@ -2,7 +2,7 @@ import React from 'react';
 import {Autocomplete, TextField} from '@mui/material';
 import './SongSelector.css'
 import {filterDataBasedOnSong} from "../data/data";
-//
+
 export default class SongSelector extends React.Component {
     constructor(props) {
         super(props);
@@ -30,7 +30,7 @@ export default class SongSelector extends React.Component {
                 disablePortal
                 id="song_selector"
                 options={this.props.songList}
-                sx={{ width: 300 }}
+                sx={{ width: 600 }}
                 getOptionLabel={(option) => `${option.title} by ${option.artist}`}
                 renderInput={(params) => <TextField {...params}  label="Select a song" />}
             />

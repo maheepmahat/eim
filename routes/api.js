@@ -38,9 +38,10 @@ router.get('/signalData/:Id', (req, res, next) => {
   var extractId = req.params.Id
   .match(/(?:"[^"]*"|^[^"]*$)/)[0]
   .replace(/"/g, "");
-  console.log("reached signal/Data");
+  //console.log("reached signal/Data");
   Signals.find({trial:mongoose.Types.ObjectId(extractId)})
     .select('_id')
+    .select('label')
     .then((data) => res.json(data))
     .catch(next);
 });
@@ -49,14 +50,14 @@ router.get('/signals/:filename', (req, res, next) => {
   let gfs, gridFSBucket;
   
   var extractId = req.params.filename
-  .match(/(?:"[^"]*"|^[^"]*$)/)[0]
+  .match(/(?:"[^"]*"|^[^"]*$)/)[0] 
   .replace(/"/g, ""); 
   
   //console.log("reached signals with filename = " + extractedId);
   var file_user_id = extractId + ".csv";
   gfs = Grid(mongoose.connection.db, mongoose.mongo);
   gfs.collection('signals');
-  console.log("file_user_id var = " + file_user_id + "type = " + typeof(file_user_id));
+  //console.log("file_user_id var = " + file_user_id + "type = " + typeof(file_user_id));
 
   // gfs.files.find({_id:mongoose.Types.ObjectId(user_id)},{ metadata:{location:"bergen"} }).toArray((err,file) =>{
      gfs.files.find({filename:file_user_id},{ metadata:{location:"bergen"} }).toArray((err,file) =>{
@@ -93,14 +94,19 @@ router.get('/signals/:filename', (req, res, next) => {
 
 });
 
-router.get('/song', (req, res, next) => {
+router.get('/song/:song1label', (req, res, next) => {
   let gfs, gridFSBucket;
   
-
+  var extractLabel = req.params.song1label
+  .match(/(?:"[^"]*"|^[^"]*$)/)[0]
+  .replace(/"/g, ""); 
+  
+  //console.log("reached signals with filename = " + extractedId);
+  var songFileName = extractLabel + ".wav";
   gfs = Grid(mongoose.connection.db, mongoose.mongo);
   gfs.collection('media');
 
-  gfs.files.find({_id:mongoose.Types.ObjectId("537e4b1e050992e6b6107bce")}).toArray((err,file) =>{
+  gfs.files.find({filename:songFileName}).toArray((err,file) =>{
 
   if (err) {
             // report the error
