@@ -1,5 +1,5 @@
 import './App.css';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import HomeComponent from "./components/HomeComponent";
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import SingleUserData from "./components/SingleUserData";
@@ -11,6 +11,7 @@ import { Box } from '@mui/system';
 
 function App() {
     const [currUserId, setCurrUserId] = useState('')
+
     return (
         <div className={'App'}>
             <BrowserRouter>
