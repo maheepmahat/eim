@@ -10,7 +10,7 @@ function HomeComponent({numData, setCurrUserId}) {
     const data = createFakeData(numData);
     const [rows, setRows] = useState(flattenArrayOfJson(data))
     return (
-        <div className="App">
+        <div className="Home">
             <SongSelector songList={songList} setRows={setRows} rows={flattenArrayOfJson(data) } />
             <DataTable rows={rows} setCurrUserId={setCurrUserId} />
         </div>

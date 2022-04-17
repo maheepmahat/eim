@@ -103,14 +103,14 @@ function SingleUserData(props) {
             <br />
             <h5>User's EDA and HR data against Time is shown below</h5> <br />
             
-            <LineChart width={500} height={300} data={csv_file}>
+            <LineChart width={800} height={300} data={csv_file}>
                 <XAxis dataKey="timestamps" /> 
                 <YAxis />
                 <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
                 <Tooltip />
                 <Line type="monotone" dataKey="eda_filtered" stroke="#8884d8" />
             </LineChart>
-            <LineChart width={500} height={300} data={csv_file}>
+            <LineChart width={900} height={300} data={csv_file}>
                 <XAxis dataKey="timestamps" /> 
                 <YAxis />
                 <CartesianGrid stroke="#eee" strokeDasharray="5 5" />

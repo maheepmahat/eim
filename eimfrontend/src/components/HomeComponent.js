@@ -8,7 +8,7 @@ import { setColumnsState } from '@mui/x-data-grid/hooks/features/columns/gridCol
 
 function HomeComponent({numData, setCurrUserId}) {
 
-    const data = createFakeData(8);
+    // const data = createFakeData(8);
     const [subject_data, set_subject_data] = useState([]);
     const [rows, setRows] = useState([]);
     useEffect(() =>{

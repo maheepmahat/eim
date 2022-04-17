@@ -25,8 +25,8 @@ function App() {
                 </AppBar>
                 </Box>
                 <Routes>
-                    <Route exact path='*' element={< HomeComponent numData={100} setCurrUserId={setCurrUserId} />}></Route>
-                    <Route exact path={`/id=${currUserId}`} element={< SingleUserData id={currUserId} setCurrUserId={setCurrUserId} />}></Route>
+                        <Route exact path={`/id=${currUserId}`} element={< SingleUserData id={currUserId} setCurrUserId={setCurrUserId} />}></Route>
+                        <Route exact path='*' element={< HomeComponent numData={100} setCurrUserId={setCurrUserId} />}></Route>
                 </Routes>
             </BrowserRouter>
         </div>
