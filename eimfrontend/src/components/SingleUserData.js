@@ -3,8 +3,7 @@ import { createFakeData, flattenArrayOfJson, songList } from "../data/data";
 import DataTable from "./DataTable";
 import { usePapaParse } from 'react-papaparse';
 import { LineChart, XAxis, YAxis, CartesianGrid, Line, Tooltip, ResponsiveContainer, Legend, Label } from 'recharts'
-import axios from 'axios';
-
+import "./table.css"
 //placeholders 
 var file_id = ["", "", ""];
 var media_label = ["", "", ""];
@@ -13,9 +12,7 @@ var song1, song2, song3;
 
 function SingleUserData(props) {
 
-    const { readRemoteFile } = usePapaParse();
-
-    
+    const { readRemoteFile } = usePapaParse();    
     const [subject_data, set_subject_data] = useState([]);
     const [rows, setRows] = useState([]);
     useEffect(() => {
@@ -25,7 +22,7 @@ function SingleUserData(props) {
             .then(initialData => setRows(flattenArrayOfJson(initialData)))
     }, [])
 
-    let found = subject_data.filter(function (item) { return item._id === props.id; });
+    var found = subject_data.filter(function (item) { return item._id === props.id; });
     
     const [signal_id, setSignal_Id] = useState();
     useEffect(() => {
@@ -56,10 +53,9 @@ function SingleUserData(props) {
     }
    
     song1 = "http://localhost:5000/api/song/" + media_label[0];
-        song2 = "http://localhost:5000/api/song/" + media_label[1];
-        song3 = "http://localhost:5000/api/song/" + media_label[2];
+    song2 = "http://localhost:5000/api/song/" + media_label[1];
+    song3 = "http://localhost:5000/api/song/" + media_label[2];
     
-    console.log("media labels "+media_label[0]+" "+media_label[1]+" "+media_label[2])
  
     const [csv_file1, set_csv_file1] = useState([]);
     useEffect(() => {
@@ -67,7 +63,7 @@ function SingleUserData(props) {
         readRemoteFile("http://localhost:5000/api/signals/"+file_id[0], {
             worker: true,
             complete: (results) => {
-                set_csv_file1(results.data.slice(0, 100));
+                set_csv_file1(results.data.slice(0, 300));
             },
             dynamicTyping: true,
             header: true 
@@ -78,7 +74,7 @@ function SingleUserData(props) {
         readRemoteFile("http://localhost:5000/api/signals/"+file_id[1], {
             worker: true,
             complete: (results) => {
-                set_csv_file2(results.data.slice(0, 100));
+                set_csv_file2(results.data.slice(0, 300));
             },
             dynamicTyping: true,
             header: true
@@ -89,23 +85,12 @@ function SingleUserData(props) {
         readRemoteFile("http://localhost:5000/api/signals/"+file_id[2], {
             worker: true,
             complete: (results) => {
-                set_csv_file3(results.data.slice(0, 100));
+                set_csv_file3(results.data.slice(0, 300));
             },
             dynamicTyping: true,
             header: true
         });
     },[signal_id])
-
-    /* const [audio_file1, set_audio_file1] = useState([]);
-    useEffect(() => {
-        readRemoteFile("http://localhost:5000/api/song/"+media_label[0], {
-            worker: true,
-            complete: (results) => {
-                set_audio_file1(results.data);     
-            },
-        });
-    })
-     */
 
     return (
         <div className="App">
@@ -114,6 +99,58 @@ function SingleUserData(props) {
             <DataTable rows={flattenArrayOfJson(found)} setCurrUserId={props.setCurrUserId} tableHeight={200} />
             <br />
             <br />
+            <br />
+            <div>
+            {found.length > 0 &&
+            <table class="fl-table" >
+                <thead>
+                    <tr>
+                    <th>Experiments</th>
+                    <th>Activity</th>
+                    <th>Engagement</th>
+                    <th>familiarity</th>
+                    <th>chills</th>
+                    <th>positivity</th>
+                    <th>power</th>
+                    <th>like & dislike</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><p>Experiment 1</p></td>
+                        <td>{found[0]['answers']['ratings']['activity'][0]}</td>
+                        <td>{found[0]['answers']['ratings']['engagement'][0]}</td>
+                        <td>{found[0]['answers']['ratings']['familiarity'][0]}</td>
+                        <td>{found[0]['answers']['ratings']['chills'][0]}</td>
+                        <td>{found[0]['answers']['ratings']['positivity'][0]}</td>
+                        <td>{found[0]['answers']['ratings']['power'][0]}</td>
+                        <td>{found[0]['answers']['ratings']['like_dislike'][0]}</td>
+                    </tr>
+                    <tr>
+                        <td><p>Experiment 2</p></td>
+                        <td>{found[0]['answers']['ratings']['activity'][1]}</td>
+                        <td>{found[0]['answers']['ratings']['engagement'][1]}</td>
+                        <td>{found[0]['answers']['ratings']['familiarity'][1]}</td>
+                        <td>{found[0]['answers']['ratings']['chills'][1]}</td>
+                        <td>{found[0]['answers']['ratings']['positivity'][1]}</td>
+                        <td>{found[0]['answers']['ratings']['power'][1]}</td>
+                        <td>{found[0]['answers']['ratings']['like_dislike'][1]}</td>
+                    </tr>
+                    <tr>
+                        <td><p>Experiment 3</p></td>
+                        <td>{found[0]['answers']['ratings']['activity'][2]}</td>
+                        <td>{found[0]['answers']['ratings']['engagement'][2]}</td>
+                        <td>{found[0]['answers']['ratings']['familiarity'][2]}</td>
+                        <td>{found[0]['answers']['ratings']['chills'][2]}</td>
+                        <td>{found[0]['answers']['ratings']['positivity'][2]}</td>
+                        <td>{found[0]['answers']['ratings']['power'][2]}</td>
+                        <td>{found[0]['answers']['ratings']['like_dislike'][2]}</td>
+                    </tr>
+                                        
+                </tbody>
+            </table>
+            }
+            </div>
             <br />
             <h1>User's EDA and HR data against Time is shown below</h1> <br />
             <LineChart width={1400} height={300} data={csv_file1}>
@@ -151,7 +188,7 @@ function SingleUserData(props) {
                 <source src= {song2} type="audio/wav" />
                 </audio>
             }
-            </div>
+            </div> 
             <br />
             <LineChart width={1400} height={300} data={csv_file3}>
                 <XAxis dataKey="timestamps" >

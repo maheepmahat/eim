@@ -1,10 +1,7 @@
 import SongSelector from './SongSelector'
 import DataTable from "./DataTable";
 import React, { useState, useEffect } from 'react';
-import {createFakeData, flattenArrayOfJson, songList} from "../data/data";
-import { setColumnsState } from '@mui/x-data-grid/hooks/features/columns/gridColumnsUtils';
-
-
+import {flattenArrayOfJson, songList} from "../data/data";
 
 function HomeComponent({numData, setCurrUserId}) {
 

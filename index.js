@@ -43,55 +43,7 @@ app.use((err, req, res, next) => {
 
 app.get('/', function(req, res){
   res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
-
-//------
-//app.get('/download', function(req, res){
-/*
-let id = "5410edbb08ad6ee3090e20be";
-
-
-gfs = Grid(db, mongoose.mongo);
-gfs.collection('signals');
-
-gfs.files.find({}, (err,file) =>{
-
-  if (err) {
-            // report the error
-            console.log(err);
-        } 
-        else {
-          console.log("file length " + file.length);
-          console.log("id " + mongoose.Types.ObjectId(id));
-          console.log("file =" + file);
-          console.log("connection " + conn);
-            // detect the content type and set the appropriate response headers.
-            let mimeType = file.contentType;
-            console.log("mimeType " + mimeType);
-            if (!mimeType) {
-                mimeType = mime.getType(file.filename);
-            }
-            console.log("mimeType 2" + mimeType);
-
-            file.set({
-                'Content-Type': mimeType,
-                'Content-Disposition': 'attachment; filename=' + file.filename
-            });
-
-            const readStream = gfs.createReadStream({
-                _id: id
-            });
-            readStream.on('error', err => {
-                // report stream error
-                console.log(err);
-            });
-            // the response will be the file itself.
-            readStream.pipe(file);
-        }
-      });
-      */
-//});    
-//------   
+}); 
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);

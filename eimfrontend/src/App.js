@@ -16,9 +16,9 @@ function App() {
         <div className={'App'}>
             <BrowserRouter>
             <Box sx={{ flexGrow: 1 }}>  
-                <AppBar position="static" elevation="0">
+                <AppBar position="static" elevation="0" sx={{ bgcolor: "#324960" }}>
                     <Toolbar>
-                        <Button href={'/'} color="inherit">
+                        <Button href={'/'} class="button">
                             Home
                         </Button>
                     </Toolbar>
