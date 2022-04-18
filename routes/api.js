@@ -24,9 +24,14 @@ router.get('/trials', (req, res, next) => {
     .then((data) => res.json(data))
     .catch(next);
 });
-router.get('/onesong', (req, res, next) => {
-  Main.find({_id: mongoose.Types.ObjectId("537e53b3df872bb71e4df264")})
-    .select('file')
+router.get('/songname/:label', (req, res, next) => {
+  var extractLabel = req.params.label
+  .match(/(?:"[^"]*"|^[^"]*$)/)[0]
+  .replace(/"/g, "");
+  Main.find({label: "R004"})
+    .select('title')
+    .select('artist')
+    .then((data) => res.json(data))
     .catch(next);
 });
 router.get('/signalData/:Id', (req, res, next) => {

@@ -10,7 +10,7 @@ var media_label = ["", "", ""];
 var derived_eda_file = ["", "", ""];
 var derived_pox_file = ["", "", ""];
 var song1, song2, song3;
-
+var songMetadata = "";
 
 function SingleUserData(props) {
 
@@ -58,81 +58,141 @@ function SingleUserData(props) {
         derived_pox_file[0] = signal_id[2]['derived_pox_data_file'];
         derived_pox_file[1] = signal_id[2]['derived_pox_data_file'];
         derived_pox_file[2] = signal_id[2]['derived_pox_data_file'];
-        //console.log("derived files " + derived_eda_file[0]+" "+derived_eda_file[1]+" "+derived_eda_file[2]);
+        //songMetadata = songInfo[0]['title'];
     }
+    /* const [songInfo, set_songInfo] = useState();
+    useEffect(() => {
+        fetch("http://localhost:5000/api/songname/"+songMetadata)
+        .then(res => res.json())
+        .then(songInfo =>set_songInfo(songInfo))
+    },[songMetadata]) */
 
     song1 = "http://localhost:5000/api/song/" + media_label[0];
     song2 = "http://localhost:5000/api/song/" + media_label[1];
     song3 = "http://localhost:5000/api/song/" + media_label[2];
     
- 
+    var csv_file_small1=[];
+    var csv_file_small2=[];
+    var csv_file_small3=[];
+    var pox_csv_file_small1=[];
+    var pox_csv_file_small2=[];
+    var pox_csv_file_small3=[];
     const [csv_file1, set_csv_file1] = useState([]);
     useEffect(() => {
         if(file_id[0] !== "") 
         readRemoteFile("http://localhost:5000/api/signals/"+derived_eda_file[0], {
             worker: true,
             complete: (results) => {
-                set_csv_file1(results.data.slice(0, 800));
+                set_csv_file1(results.data);
             },
             dynamicTyping: true,
             header: true 
         });
     },[signal_id])
+    //dividing the file to 500 parts and choosing 1 datapoint from each part.
+    if(signal_id !== undefined && csv_file1.length > 0) {
+        
+        var subset_size = Math.floor(csv_file1.length / 500);
+        for(var i=0; i<500; i++)
+            {
+                csv_file_small1[i] = csv_file1[i*subset_size];
+            }
+    }
     const [csv_file2, set_csv_file2] = useState([]);
     useEffect(() => {
         readRemoteFile("http://localhost:5000/api/signals/"+derived_eda_file[1], {
             worker: true,
             complete: (results) => {
-                set_csv_file2(results.data.slice(0, 800));
+                set_csv_file2(results.data);
             },
             dynamicTyping: true,
             header: true
         });
     },[signal_id])
+    if(signal_id !== undefined && csv_file2.length > 0) {
+        
+        var subset_size = Math.floor(csv_file2.length / 500);
+        for(var i=0; i<500; i++)
+            {
+                csv_file_small2[i] = csv_file2[i*subset_size];
+            }
+    }
     const [csv_file3, set_csv_file3] = useState([]);
     useEffect(() => {
         readRemoteFile("http://localhost:5000/api/signals/"+derived_eda_file[2], {
             worker: true,
             complete: (results) => {
-                set_csv_file3(results.data.slice(0, 800));
+                set_csv_file3(results.data);
             },
             dynamicTyping: true,
             header: true
         });
     },[signal_id])
+    if(signal_id !== undefined && csv_file3.length > 0) {
+        
+        var subset_size = Math.floor(csv_file3.length / 500);
+        for(var i=0; i<500; i++)
+            {
+                csv_file_small3[i] = csv_file3[i*subset_size];
+            }
+    }
     const [pox_csv_file1, set_pox_csv_file1] = useState([]);
     useEffect(() => {
         readRemoteFile("http://localhost:5000/api/signals/"+derived_pox_file[0], {
             worker: true,
             complete: (results) => {
-                set_pox_csv_file1(results.data.slice(0, 800));
+                set_pox_csv_file1(results.data);
             },
             dynamicTyping: true,
             header: true
         });
     },[signal_id])
+    if(signal_id !== undefined && pox_csv_file1.length > 0) {
+        
+        var subset_size = Math.floor(pox_csv_file1.length / 800);
+        for(var i=0; i<800; i++)
+            {
+                pox_csv_file_small1[i] = pox_csv_file1[i*subset_size];
+            }
+    }
     const [pox_csv_file2, set_pox_csv_file2] = useState([]);
     useEffect(() => {
         readRemoteFile("http://localhost:5000/api/signals/"+derived_pox_file[1], {
             worker: true,
             complete: (results) => {
-                set_pox_csv_file2(results.data.slice(0, 800));
+                set_pox_csv_file2(results.data);
             },
             dynamicTyping: true,
             header: true
         });
     },[signal_id])
+    if(signal_id !== undefined && pox_csv_file2.length > 0) {
+        
+        var subset_size = Math.floor(pox_csv_file2.length / 800);
+        for(var i=0; i<800; i++)
+            {
+                pox_csv_file_small2[i] = pox_csv_file2[i*subset_size];
+            }
+    }
     const [pox_csv_file3, set_pox_csv_file3] = useState([]);
     useEffect(() => {
         readRemoteFile("http://localhost:5000/api/signals/"+derived_pox_file[2], {
             worker: true,
             complete: (results) => {
-                set_pox_csv_file3(results.data.slice(0, 800));
+                set_pox_csv_file3(results.data);
             },
             dynamicTyping: true,
             header: true
         });
     },[signal_id])
+    if(signal_id !== undefined && pox_csv_file3.length > 0) {
+        
+        var subset_size = Math.floor(pox_csv_file3.length / 800);
+        for(var i=0; i<800; i++)
+            {
+                pox_csv_file_small3[i] = pox_csv_file3[i*subset_size];
+            }
+    }
 
     return (
         <div className="App">
@@ -199,7 +259,7 @@ function SingleUserData(props) {
             <br />
             <h1>First Song</h1> <br />
             <br />
-            <LineChart width={1400} height={300} data={csv_file1}>
+            <LineChart width={1500} height={300} data={csv_file_small1}>
                 <XAxis dataKey="adjusted_time" /> 
                 abc
                 <YAxis />
@@ -208,7 +268,7 @@ function SingleUserData(props) {
                 <Tooltip/>
                 <Line name="eda (microsiemens)" type="monotone" dataKey="eda_cleaned" stroke="#8884d8" />
             </LineChart> <br />
-            <LineChart width={1400} height={300} data={pox_csv_file1}>
+            <LineChart width={1400} height={300} data={pox_csv_file_small1}>
                 <XAxis dataKey="adjusted_time" /> 
                 abc
                 <YAxis />
@@ -230,7 +290,7 @@ function SingleUserData(props) {
             <br />
             <h1>Second Song</h1> <br />
 
-            <LineChart width={1400} height={300} data={csv_file2}>
+            <LineChart width={1400} height={300} data={csv_file_small2}>
                 <XAxis dataKey="adjusted_time" /> 
                 <YAxis />
                 <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
@@ -239,7 +299,7 @@ function SingleUserData(props) {
                 <Line name="eda (microsiemens)" type="monotone" dataKey="eda_cleaned" stroke="#8884d8" />
                 <Line name="heart rate (beats per minute)" type="monotone" dataKey="hr" stroke="#82ca9d" />
             </LineChart><br />
-            <LineChart width={1400} height={300} data={pox_csv_file2}>
+            <LineChart width={1400} height={300} data={pox_csv_file_small2}>
                 <XAxis dataKey="adjusted_time" /> 
                 <YAxis />
                 <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
@@ -259,7 +319,7 @@ function SingleUserData(props) {
             <hr size="10" color="#324960" />
             <h1>Third Song</h1> <br />
 
-            <LineChart width={1400} height={300} data={csv_file3}>
+            <LineChart width={1400} height={300} data={csv_file_small3}>
                 <XAxis dataKey="adjusted_time" >
                 <Label value="time" offset={0} position="insideBottom" />    
                 </XAxis> 
@@ -269,7 +329,7 @@ function SingleUserData(props) {
                 <Tooltip/>
                 <Line name="eda (microsiemens)" type="monotone" dataKey="eda_cleaned" stroke="#8884d8" />
             </LineChart> <br />
-            <LineChart width={1400} height={300} data={pox_csv_file3}>
+            <LineChart width={1400} height={300} data={pox_csv_file_small3}>
                 <XAxis dataKey="adjusted_time" >
                 <Label value="time" offset={0} position="insideBottom" />    
                 </XAxis> 
