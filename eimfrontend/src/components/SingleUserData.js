@@ -5,6 +5,7 @@ import { usePapaParse } from 'react-papaparse';
 import { LineChart, XAxis, YAxis, CartesianGrid, Line, Tooltip, ResponsiveContainer, Legend, Label } from 'recharts'
 import "./table.css"
 import { useParams } from 'react-router-dom'
+import Ratings from './Ratings';
 //placeholders 
 var file_id = ["", "", ""];
 var media_label = ["", "", ""];
@@ -23,7 +24,7 @@ function SingleUserData(props) {
             .then(initialData => setRows(flattenArrayOfJson(initialData)))
     }, [])
 
-    var found = subject_data.filter(function (item) { return item._id === props.id; });
+    const found = subject_data.filter(function (item) { return item._id === props.id; });
     
     const [signal_id, setSignal_Id] = useState();
     useEffect(() => {
@@ -98,6 +99,7 @@ function SingleUserData(props) {
             { <h1> User with id of {id} </h1>  }
 
             <DataTable rows={flattenArrayOfJson(found)} setCurrUserId={props.setCurrUserId} currId={id} tableHeight={200} />
+            <Ratings ratings={found[0]['answers']['ratings']}/>
             <div style={{paddingTop: "50px"}}>
             {found.length > 0 &&
             <table className="fl-table" >
