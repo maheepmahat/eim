@@ -18,7 +18,7 @@ router.get('/main', (req, res, next) => {
 });
 
 router.get('/trials', (req, res, next) => {
-  Trials.find({})
+  Trials.find({experiment:mongoose.Types.ObjectId("5432bc4a36ac55e198b91776")})
     .select('answers media')
     .limit(100)
     .then((data) => res.json(data))
@@ -36,12 +36,14 @@ router.get('/signalData/:Id', (req, res, next) => {
   Signals.find({trial:mongoose.Types.ObjectId(extractId)})
     .select('_id')
     .select('label')
+    .select('derived_eda_data_file')
+    .select('derived_pox_data_file')
     .then((data) => res.json(data))
     .catch(next);
 });
 
 router.get('/signals/:filename', (req, res, next) => {
-  let gfs, gridFSBucket;
+  let gfs;
   
   var extractId = req.params.filename
   .match(/(?:"[^"]*"|^[^"]*$)/)[0] 
@@ -51,7 +53,8 @@ router.get('/signals/:filename', (req, res, next) => {
   gfs = Grid(mongoose.connection.db, mongoose.mongo);
   gfs.collection('signals');
 
-  gfs.files.find({filename:file_user_id},{ metadata:{location:"bergen"} }).toArray((err,file) =>{
+  //gfs.files.find({filename:file_user_id},{ metadata:{location:"bergen"} }).toArray((err,file) =>{
+  gfs.files.find({_id:mongoose.Types.ObjectId(extractId)}).toArray((err,file) =>{
 
   if (err) {
             console.log(err);
