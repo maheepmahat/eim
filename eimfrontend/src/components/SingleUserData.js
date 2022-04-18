@@ -9,6 +9,8 @@ import Ratings from './Ratings';
 //placeholders 
 var file_id = ["", "", ""];
 var media_label = ["", "", ""];
+var derived_eda_file = ["", "", ""];
+var derived_pox_file = ["", "", ""];
 var song1, song2, song3;
 
 
@@ -52,8 +54,15 @@ function SingleUserData(props) {
         media_label[0] = signal_id[0]['label'];
         media_label[1] = signal_id[1]['label'];
         media_label[2] = signal_id[2]['label'];
+        derived_eda_file[0] = signal_id[0]['derived_eda_data_file'];
+        derived_eda_file[1] = signal_id[1]['derived_eda_data_file'];
+        derived_eda_file[2] = signal_id[2]['derived_eda_data_file'];
+        derived_pox_file[0] = signal_id[2]['derived_pox_data_file'];
+        derived_pox_file[1] = signal_id[2]['derived_pox_data_file'];
+        derived_pox_file[2] = signal_id[2]['derived_pox_data_file'];
+        //console.log("derived files " + derived_eda_file[0]+" "+derived_eda_file[1]+" "+derived_eda_file[2]);
     }
-   
+
     song1 = "http://localhost:5000/api/song/" + media_label[0];
     song2 = "http://localhost:5000/api/song/" + media_label[1];
     song3 = "http://localhost:5000/api/song/" + media_label[2];
@@ -62,10 +71,10 @@ function SingleUserData(props) {
     const [csv_file1, set_csv_file1] = useState([]);
     useEffect(() => {
         if(file_id[0] !== "") 
-        readRemoteFile("http://localhost:5000/api/signals/"+file_id[0], {
+        readRemoteFile("http://localhost:5000/api/signals/"+derived_eda_file[0], {
             worker: true,
             complete: (results) => {
-                set_csv_file1(results.data.slice(0, 300));
+                set_csv_file1(results.data.slice(0, 800));
             },
             dynamicTyping: true,
             header: true 
@@ -73,10 +82,10 @@ function SingleUserData(props) {
     },[signal_id])
     const [csv_file2, set_csv_file2] = useState([]);
     useEffect(() => {
-        readRemoteFile("http://localhost:5000/api/signals/"+file_id[1], {
+        readRemoteFile("http://localhost:5000/api/signals/"+derived_eda_file[1], {
             worker: true,
             complete: (results) => {
-                set_csv_file2(results.data.slice(0, 300));
+                set_csv_file2(results.data.slice(0, 800));
             },
             dynamicTyping: true,
             header: true
@@ -84,10 +93,43 @@ function SingleUserData(props) {
     },[signal_id])
     const [csv_file3, set_csv_file3] = useState([]);
     useEffect(() => {
-        readRemoteFile("http://localhost:5000/api/signals/"+file_id[2], {
+        readRemoteFile("http://localhost:5000/api/signals/"+derived_eda_file[2], {
             worker: true,
             complete: (results) => {
-                set_csv_file3(results.data.slice(0, 300));
+                set_csv_file3(results.data.slice(0, 800));
+            },
+            dynamicTyping: true,
+            header: true
+        });
+    },[signal_id])
+    const [pox_csv_file1, set_pox_csv_file1] = useState([]);
+    useEffect(() => {
+        readRemoteFile("http://localhost:5000/api/signals/"+derived_pox_file[0], {
+            worker: true,
+            complete: (results) => {
+                set_pox_csv_file1(results.data.slice(0, 800));
+            },
+            dynamicTyping: true,
+            header: true
+        });
+    },[signal_id])
+    const [pox_csv_file2, set_pox_csv_file2] = useState([]);
+    useEffect(() => {
+        readRemoteFile("http://localhost:5000/api/signals/"+derived_pox_file[1], {
+            worker: true,
+            complete: (results) => {
+                set_pox_csv_file2(results.data.slice(0, 800));
+            },
+            dynamicTyping: true,
+            header: true
+        });
+    },[signal_id])
+    const [pox_csv_file3, set_pox_csv_file3] = useState([]);
+    useEffect(() => {
+        readRemoteFile("http://localhost:5000/api/signals/"+derived_pox_file[2], {
+            worker: true,
+            complete: (results) => {
+                set_pox_csv_file3(results.data.slice(0, 800));
             },
             dynamicTyping: true,
             header: true
@@ -152,16 +194,28 @@ function SingleUserData(props) {
             }
             </div>
             <br />
-            <h1>User's EDA and HR data against Time is shown below</h1> <br />
+            <h1>User's EDA and POX data against Time is shown below</h1><br />
+            <hr size="10" color="#324960" />
+            <br />
+            <h1>First Song</h1> <br />
+            <br />
             <LineChart width={1400} height={300} data={csv_file1}>
-                <XAxis dataKey="timestamps" /> 
+                <XAxis dataKey="adjusted_time" /> 
                 abc
                 <YAxis />
                 <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
                 <Legend verticalAlign="top" height={36}/>
                 <Tooltip/>
-                <Line name="eda (microsiemens)" type="monotone" dataKey="eda_raw" stroke="#8884d8" />
-                <Line name="heart rate (beats per minute)" type="monotone" dataKey="hr" stroke="#82ca9d" />
+                <Line name="eda (microsiemens)" type="monotone" dataKey="eda_cleaned" stroke="#8884d8" />
+            </LineChart> <br />
+            <LineChart width={1400} height={300} data={pox_csv_file1}>
+                <XAxis dataKey="adjusted_time" /> 
+                abc
+                <YAxis />
+                <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
+                <Legend verticalAlign="top" height={36}/>
+                <Tooltip/>
+                <Line name="pox (microsiemens)" type="monotone" dataKey="pox_adjusted" stroke="#8884d8" />
             </LineChart>
             <br />
             <div>
@@ -171,15 +225,27 @@ function SingleUserData(props) {
                 </audio>
             }
             </div>
+            <hr size="10" color="#324960" />
+
             <br />
+            <h1>Second Song</h1> <br />
+
             <LineChart width={1400} height={300} data={csv_file2}>
-                <XAxis dataKey="timestamps" /> 
+                <XAxis dataKey="adjusted_time" /> 
                 <YAxis />
                 <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
                 <Legend verticalAlign="top" height={36}/>
                 <Tooltip/>
-                <Line name="eda (microsiemens)" type="monotone" dataKey="eda_raw" stroke="#8884d8" />
+                <Line name="eda (microsiemens)" type="monotone" dataKey="eda_cleaned" stroke="#8884d8" />
                 <Line name="heart rate (beats per minute)" type="monotone" dataKey="hr" stroke="#82ca9d" />
+            </LineChart><br />
+            <LineChart width={1400} height={300} data={pox_csv_file2}>
+                <XAxis dataKey="adjusted_time" /> 
+                <YAxis />
+                <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
+                <Legend verticalAlign="top" height={36}/>
+                <Tooltip/>
+                <Line name="pox (microsiemens)" type="monotone" dataKey="pox_adjusted" stroke="#8884d8" />
             </LineChart>
             <br />
             <div>
@@ -190,16 +256,28 @@ function SingleUserData(props) {
             }
             </div> 
             <br />
+            <hr size="10" color="#324960" />
+            <h1>Third Song</h1> <br />
+
             <LineChart width={1400} height={300} data={csv_file3}>
-                <XAxis dataKey="timestamps" >
+                <XAxis dataKey="adjusted_time" >
                 <Label value="time" offset={0} position="insideBottom" />    
                 </XAxis> 
                 <YAxis label={{ value: 'tbd', angle: -90, position: 'insideLeft' }} />
                 <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
                 <Legend verticalAlign="top" height={36}/>
                 <Tooltip/>
-                <Line name="eda (microsiemens)" type="monotone" dataKey="eda_raw" stroke="#8884d8" />
-                <Line name="heart rate (beats per minute)" type="monotone" dataKey="hr" stroke="#82ca9d" />
+                <Line name="eda (microsiemens)" type="monotone" dataKey="eda_cleaned" stroke="#8884d8" />
+            </LineChart> <br />
+            <LineChart width={1400} height={300} data={pox_csv_file3}>
+                <XAxis dataKey="adjusted_time" >
+                <Label value="time" offset={0} position="insideBottom" />    
+                </XAxis> 
+                <YAxis label={{ value: 'tbd', angle: -90, position: 'insideLeft' }} />
+                <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
+                <Legend verticalAlign="top" height={36}/>
+                <Tooltip/>
+                <Line name="pox (microsiemens)" type="monotone" dataKey="pox_adjusted" stroke="#8884d8" />
             </LineChart>
             <br /><br />
             <div>
