@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect} from 'react';
 import { createFakeData, flattenArrayOfJson, songList } from "../data/data";
 import DataTable from "./DataTable";
 import { usePapaParse } from 'react-papaparse';
 import { LineChart, XAxis, YAxis, CartesianGrid, Line, Tooltip, ResponsiveContainer, Legend, Label } from 'recharts'
 import "./table.css"
+import { useParams } from 'react-router-dom'
 //placeholders 
 var file_id = ["", "", ""];
 var media_label = ["", "", ""];
@@ -11,7 +12,7 @@ var song1, song2, song3;
 
 
 function SingleUserData(props) {
-
+    const {id} = useParams();
     const { readRemoteFile } = usePapaParse();    
     const [subject_data, set_subject_data] = useState([]);
     const [rows, setRows] = useState([]);
@@ -94,15 +95,12 @@ function SingleUserData(props) {
 
     return (
         <div className="App">
-            { <h1> User with id of {props.id} </h1>  }
+            { <h1> User with id of {id} </h1>  }
 
-            <DataTable rows={flattenArrayOfJson(found)} setCurrUserId={props.setCurrUserId} tableHeight={200} />
-            <br />
-            <br />
-            <br />
-            <div>
+            <DataTable rows={flattenArrayOfJson(found)} setCurrUserId={props.setCurrUserId} currId={id} tableHeight={200} />
+            <div style={{paddingTop: "50px"}}>
             {found.length > 0 &&
-            <table class="fl-table" >
+            <table className="fl-table" >
                 <thead>
                     <tr>
                     <th>Experiments</th>

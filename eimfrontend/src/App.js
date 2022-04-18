@@ -13,21 +13,21 @@ function App() {
     const [currUserId, setCurrUserId] = useState('')
 
     return (
-        <div className={'App'}>
+        <div className="App">
             <BrowserRouter>
-            <Box sx={{ flexGrow: 1 }}>  
-                <AppBar position="static" elevation="0" sx={{ bgcolor: "#324960" }}>
-                    <Toolbar>
-                        <Button href={'/'} class="button">
-                            Home
-                        </Button>
-                    </Toolbar>
+                <Box sx={{ flexGrow: 1 }}>
+                    <AppBar position="static" elevation="0" sx={{ bgcolor: "#324960" }}>
+                        <Toolbar>
+                            <Button href={'/'} className="button">
+                                Home
+                            </Button>
+                        </Toolbar>
 
-                </AppBar>
+                    </AppBar>
                 </Box>
-                <Routes>
-                        <Route exact path={`/id=${currUserId}`} element={< SingleUserData id={currUserId} setCurrUserId={setCurrUserId} />}></Route>
-                        <Route exact path='*' element={< HomeComponent numData={100} setCurrUserId={setCurrUserId} />}></Route>
+                <Routes>    
+                    <Route exact path={`/user/:id`} element={< SingleUserData id={currUserId} setCurrUserId={setCurrUserId} />}></Route>
+                    <Route exact path='/' element={< HomeComponent numData={100} setCurrUserId={setCurrUserId} />}></Route>
                 </Routes>
             </BrowserRouter>
         </div>

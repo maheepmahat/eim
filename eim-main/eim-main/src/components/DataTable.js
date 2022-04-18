@@ -23,7 +23,7 @@ export default function DataTable({rows, setCurrUserId}) {
                         style={{marginLeft: 16}}
                     >
                         <Link
-                            to={`/id=${params.value}`}
+                            to={`/user/${params.value}`}
                             onClick={() => setCurrUserId(params.value)}
                             style={{textDecoration: 'none'}}
                         >
