@@ -100,6 +100,7 @@ export default function DataTable({rows, setCurrUserId}) {
                     rows={rows}
                     columns={columns}
                     rowsPerPageOptions={[5, 10, 20, 50, 100]}
+                    hideFooter={true}
                     checkboxSelection
                     disableSelectionOnClick
                     components={{

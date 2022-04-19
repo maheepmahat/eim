@@ -142,19 +142,19 @@ export default function DataTable({rows, setCurrUserId, tableHeight, hideFooter}
     return (
         <>
             <div style={{ height: tableHeight }} >
-            {tableHeight == 200 &&
+            {tableHeight < 800 &&
                 <DataGrid
                 sx={{ m: 8 }}
                 rows={rows}
-                columns={columns2}               
+                columns={columns2}  
+                hideFooter={true}             
             />
             }
-            {tableHeight == 800 &&
+            {tableHeight === 800 &&
                 <DataGrid
                     sx={{ m: 8 }}
                     rows={rows}
                     columns={columns}
-                    hideFooter={hideFooter}
                     rowsPerPageOptions={[5, 10, 20, 50, 100]}
                     checkboxSelection
                     disableSelectionOnClick
