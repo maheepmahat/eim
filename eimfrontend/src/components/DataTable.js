@@ -4,12 +4,12 @@ import {Button} from "@mui/material";
 import {BrowserRouter, Link, Route, Routes} from "react-router-dom";
 
 
-export default function DataTable({rows, setCurrUserId, tableHeight, currId}) {
+export default function DataTable({rows, setCurrUserId, tableHeight, hideFooter}) {
 
     const columns = [
         {
             field: 'id', headerName: 'User',
-            flex: 1,
+            flex: 2,
             renderCell: (params) => (
                 <strong>
                     <Button
@@ -146,8 +146,7 @@ export default function DataTable({rows, setCurrUserId, tableHeight, currId}) {
                 <DataGrid
                 sx={{ m: 8 }}
                 rows={rows}
-                columns={columns2}    
-           
+                columns={columns2}               
             />
             }
             {tableHeight == 800 &&
@@ -155,6 +154,7 @@ export default function DataTable({rows, setCurrUserId, tableHeight, currId}) {
                     sx={{ m: 8 }}
                     rows={rows}
                     columns={columns}
+                    hideFooter={hideFooter}
                     rowsPerPageOptions={[5, 10, 20, 50, 100]}
                     checkboxSelection
                     disableSelectionOnClick

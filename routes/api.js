@@ -18,7 +18,7 @@ router.get('/main', (req, res, next) => {
 });
 
 router.get('/trials', (req, res, next) => {
-  Trials.find({experiment:mongoose.Types.ObjectId("5432bc4a36ac55e198b91776")})
+  Trials.find({experiment:mongoose.Types.ObjectId("5432bd0136ac55e198b91778")})
     .select('answers media')
     .then((data) => res.json(data))
     .catch(next);
@@ -27,7 +27,7 @@ router.get('/songname/:label', (req, res, next) => {
   var extractLabel = req.params.label
   .match(/(?:"[^"]*"|^[^"]*$)/)[0]
   .replace(/"/g, "");
-  Main.find({label: "R004"})
+  Main.find({label: extractLabel})
     .select('title')
     .select('artist')
     .then((data) => res.json(data))
@@ -57,7 +57,6 @@ router.get('/signals/:filename', (req, res, next) => {
   gfs = Grid(mongoose.connection.db, mongoose.mongo);
   gfs.collection('signals');
 
-  //gfs.files.find({filename:file_user_id},{ metadata:{location:"bergen"} }).toArray((err,file) =>{
   gfs.files.find({_id:mongoose.Types.ObjectId(extractId)}).toArray((err,file) =>{
 
   if (err) {
