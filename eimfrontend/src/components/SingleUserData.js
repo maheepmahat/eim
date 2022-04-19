@@ -7,6 +7,7 @@ import "./table.css"
 import { useParams } from 'react-router-dom'
 import Ratings from './Ratings';
 import { Chip, Divider, Typography } from '@mui/material';
+import GraphAudio from './GraphAudio';
 //placeholders 
 var file_id = ["", "", ""];
 var media_label = ["", "", ""];
@@ -202,163 +203,18 @@ function SingleUserData(props) {
            
             <Typography variant="h4" style={{margin: '20px'}}>User with id of {id}</Typography>
 
-            <DataTable rows={flattenArrayOfJson(found)} setCurrUserId={props.setCurrUserId} currId={id} tableHeight={200} />
+            <DataTable hideFooter={true} rows={flattenArrayOfJson(found)} setCurrUserId={props.setCurrUserId} tableHeight={200}  />
             <div style={{display: 'flex',  justifyContent:'center', alignItems:'center', padding: '20px 0px'}}>
             <Ratings found={found}/>
             </div>
-            {/* <div style={{paddingTop: "50px"}}>
-            {found.length > 0 &&
-            <table className="fl-table" >
-                <thead>
-                    <tr>
-                    <th>Experiments</th>
-                    <th>Activity</th>
-                    <th>Engagement</th>
-                    <th>familiarity</th>
-                    <th>chills</th>
-                    <th>positivity</th>
-                    <th>power</th>
-                    <th>like & dislike</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    
-                    <tr>
-                        <td><p>Experiment 1</p></td>
-                        <td>{found[0]['answers']['ratings']['activity'][0]}</td>
-                        <td>{found[0]['answers']['ratings']['engagement'][0]}</td>
-                        <td>{found[0]['answers']['ratings']['familiarity'][0]}</td>
-                        <td>{found[0]['answers']['ratings']['chills'][0]}</td>
-                        <td>{found[0]['answers']['ratings']['positivity'][0]}</td>
-                        <td>{found[0]['answers']['ratings']['power'][0]}</td>
-                        <td>{found[0]['answers']['ratings']['like_dislike'][0]}</td>
-                    </tr>
-                    <tr>
-                        <td><p>Experiment 2</p></td>
-                        <td>{found[0]['answers']['ratings']['activity'][1]}</td>
-                        <td>{found[0]['answers']['ratings']['engagement'][1]}</td>
-                        <td>{found[0]['answers']['ratings']['familiarity'][1]}</td>
-                        <td>{found[0]['answers']['ratings']['chills'][1]}</td>
-                        <td>{found[0]['answers']['ratings']['positivity'][1]}</td>
-                        <td>{found[0]['answers']['ratings']['power'][1]}</td>
-                        <td>{found[0]['answers']['ratings']['like_dislike'][1]}</td>
-                    </tr>
-                    <tr>
-                        <td><p>Experiment 3</p></td>
-                        <td>{found[0]['answers']['ratings']['activity'][2]}</td>
-                        <td>{found[0]['answers']['ratings']['engagement'][2]}</td>
-                        <td>{found[0]['answers']['ratings']['familiarity'][2]}</td>
-                        <td>{found[0]['answers']['ratings']['chills'][2]}</td>
-                        <td>{found[0]['answers']['ratings']['positivity'][2]}</td>
-                        <td>{found[0]['answers']['ratings']['power'][2]}</td>
-                        <td>{found[0]['answers']['ratings']['like_dislike'][2]}</td>
-                    </tr>
-                                        
-                </tbody>
-            </table>
-            }
-            </div> */}
-            <br />
-<<<<<<< HEAD
-           <Typography variant="h4" style={{margin: '20px'}}>Signal Information</Typography>
-           <Divider variant="middle">
-           <Chip label="First Song" />
-            </Divider>
-        
-            <LineChart width={1400} height={300} data={csv_file1}>
-=======
-            <LineChart width={1500} height={300} data={csv_file_small1}>
->>>>>>> ed7381c2d31e2dde92992a4724a8743af22e9314
-                <XAxis dataKey="adjusted_time" /> 
-                abc
-                <YAxis />
-                <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
-                <Legend verticalAlign="top" height={36}/>
-                <Tooltip/>
-                <Line name="eda (microsiemens)" type="monotone" dataKey="eda_cleaned" stroke="#8884d8" />
-            </LineChart> <br />
-            <LineChart width={1400} height={300} data={pox_csv_file_small1}>
-                <XAxis dataKey="adjusted_time" /> 
-                abc
-                <YAxis />
-                <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
-                <Legend verticalAlign="top" height={36}/>
-                <Tooltip/>
-                <Line name="pox (microsiemens)" type="monotone" dataKey="pox_adjusted" stroke="#8884d8" />
-            </LineChart>
-       
-            <div>
-            {media_label[0] !== "" &&
-                <audio controls>
-                <source src= {song1} type="audio/wav" />
-                </audio>
-            }
-            </div>
- 
-            
-            {/* <Typography variant="h5" style={{margin: '20px'}}>Second Song</Typography> */}
-            <Divider variant="middle">
-           <Chip label="Second Song" />
-            </Divider>
 
-            <LineChart width={1400} height={300} data={csv_file_small2}>
-                <XAxis dataKey="adjusted_time" /> 
-                <YAxis />
-                <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
-                <Legend verticalAlign="top" height={36}/>
-                <Tooltip/>
-                <Line name="eda (microsiemens)" type="monotone" dataKey="eda_cleaned" stroke="#8884d8" />
-                <Line name="heart rate (beats per minute)" type="monotone" dataKey="hr" stroke="#82ca9d" />
-            </LineChart><br />
-            <LineChart width={1400} height={300} data={pox_csv_file_small2}>
-                <XAxis dataKey="adjusted_time" /> 
-                <YAxis />
-                <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
-                <Legend verticalAlign="top" height={36}/>
-                <Tooltip/>
-                <Line name="pox (microsiemens)" type="monotone" dataKey="pox_adjusted" stroke="#8884d8" />
-            </LineChart>
-            <br />
-            <div>
-            {media_label[1] !== "" &&
-                <audio controls>
-                <source src= {song2} type="audio/wav" />
-                </audio>
-            }
-            </div> 
-            {/* <Typography variant="h5" style={{margin: '20px'}}>Third Song</Typography> */}
-            <Divider variant="middle">
-           <Chip label="Third Song" />
-            </Divider>
 
-            <LineChart width={1400} height={300} data={csv_file_small3}>
-                <XAxis dataKey="adjusted_time" >
-                <Label value="time" offset={0} position="insideBottom" />    
-                </XAxis> 
-                <YAxis label={{ value: 'tbd', angle: -90, position: 'insideLeft' }} />
-                <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
-                <Legend verticalAlign="top" height={36}/>
-                <Tooltip/>
-                <Line name="eda (microsiemens)" type="monotone" dataKey="eda_cleaned" stroke="#8884d8" />
-            </LineChart> <br />
-            <LineChart width={1400} height={300} data={pox_csv_file_small3}>
-                <XAxis dataKey="adjusted_time" >
-                <Label value="time" offset={0} position="insideBottom" />    
-                </XAxis> 
-                <YAxis label={{ value: 'tbd', angle: -90, position: 'insideLeft' }} />
-                <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
-                <Legend verticalAlign="top" height={36}/>
-                <Tooltip/>
-                <Line name="pox (microsiemens)" type="monotone" dataKey="pox_adjusted" stroke="#8884d8" />
-            </LineChart>
-            <br /><br />
-            <div>
-            {media_label[2] !== "" &&
-                <audio controls>
-                <source src= {song3} type="audio/wav" />
-                </audio>
-            }
-            </div>        
+           <Typography variant="h4" style={{margin: '10px'}}>Signal Information</Typography>
+
+            <GraphAudio title="First Song" eda_file={csv_file1} pox_file={pox_csv_file_small1} media_label={media_label} song={song1}/>
+            <GraphAudio title="Second Song" eda_file={csv_file2} pox_file={pox_csv_file_small2} media_label={media_label} song={song2}/>
+            <GraphAudio title="Third Song" eda_file={csv_file3} pox_file={pox_csv_file_small3} media_label={media_label} song={song3}/>
+    
         </div>
 
     );

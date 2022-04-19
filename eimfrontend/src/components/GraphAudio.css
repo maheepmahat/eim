@@ -1,0 +1,14 @@
+.graphaudio {
+    padding: 20px;
+}
+
+.audio {
+    width: 60%;
+    margin: 20px 0;
+}
+
+.graphs {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}

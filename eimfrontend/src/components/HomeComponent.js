@@ -23,7 +23,7 @@ function HomeComponent({numData, setCurrUserId}) {
    return (
         <div className="App">
             <SongSelector songList={json_data} setRows={setRows} rows={flattenArrayOfJson(subject_data)} />
-            <DataTable rows={rows} setCurrUserId={setCurrUserId} tableHeight={800} />
+            <DataTable rows={rows} setCurrUserId={setCurrUserId} tableHeight={800} hideFooter={false}/>
         </div>
 
     );
