@@ -259,19 +259,21 @@ function SingleUserData(props) {
             }
             </div> */}
             <br />
-<<<<<<< HEAD
-           <Typography variant="h4" style={{margin: '20px'}}>Signal Information</Typography>
-           <Divider variant="middle">
-           <Chip label="First Song" />
+            <Divider variant="middle">
+            <Chip label="First Song" /> 
             </Divider>
-        
-            <LineChart width={1400} height={300} data={csv_file1}>
-=======
+            <br />
+            <div>
+            {media_label[0] !== "" &&
+                <audio controls>
+                <source src= {song1} type="audio/wav" />
+                </audio>
+            }
+            </div><br />
             <LineChart width={1500} height={300} data={csv_file_small1}>
->>>>>>> ed7381c2d31e2dde92992a4724a8743af22e9314
                 <XAxis dataKey="adjusted_time" /> 
-                abc
-                <YAxis />
+                <Label value="time" offset={0} position="insideBottom" />    
+                <YAxis label={{ value: 'tbd', angle: -90, position: 'insideLeft' }}/>
                 <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
                 <Legend verticalAlign="top" height={36}/>
                 <Tooltip/>
@@ -279,45 +281,19 @@ function SingleUserData(props) {
             </LineChart> <br />
             <LineChart width={1500} height={300} data={pox_csv_file_small1}>
                 <XAxis dataKey="adjusted_time" /> 
-                abc
-                <YAxis />
+                <Label value="time" offset={0} position="insideBottom" />    
+                <YAxis label={{ value: 'tbd', angle: -90, position: 'insideLeft' }}/>
                 <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
                 <Legend verticalAlign="top" height={36}/>
                 <Tooltip/>
                 <Line name="pox (microsiemens)" type="monotone" dataKey="pox_adjusted" stroke="#8884d8" />
             </LineChart>
-       
-            <div>
-            {media_label[0] !== "" &&
-                <audio controls>
-                <source src= {song1} type="audio/wav" />
-                </audio>
-            }
-            </div>
  
             
             {/* <Typography variant="h5" style={{margin: '20px'}}>Second Song</Typography> */}
             <Divider variant="middle">
-           <Chip label="Second Song" />
+            <Chip label="Second Song" />
             </Divider>
-
-            <LineChart width={1500} height={300} data={csv_file_small2}>
-                <XAxis dataKey="adjusted_time" /> 
-                <YAxis />
-                <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
-                <Legend verticalAlign="top" height={36}/>
-                <Tooltip/>
-                <Line name="eda (microsiemens)" type="monotone" dataKey="eda_cleaned" stroke="#8884d8" />
-                <Line name="heart rate (beats per minute)" type="monotone" dataKey="hr" stroke="#82ca9d" />
-            </LineChart><br />
-            <LineChart width={1500} height={300} data={pox_csv_file_small2}>
-                <XAxis dataKey="adjusted_time" /> 
-                <YAxis />
-                <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
-                <Legend verticalAlign="top" height={36}/>
-                <Tooltip/>
-                <Line name="pox (microsiemens)" type="monotone" dataKey="pox_adjusted" stroke="#8884d8" />
-            </LineChart>
             <br />
             <div>
             {media_label[1] !== "" &&
@@ -325,12 +301,39 @@ function SingleUserData(props) {
                 <source src= {song2} type="audio/wav" />
                 </audio>
             }
-            </div> 
+            </div><br />
+            <LineChart width={1500} height={300} data={csv_file_small2}>
+                <XAxis dataKey="adjusted_time" /> <br />
+                <Label value="time" offset={0} position="insideBottom" />    
+                <YAxis label={{ value: 'tbd', angle: -90, position: 'insideLeft' }}/>
+                <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
+                <Legend verticalAlign="top" height={36}/>
+                <Tooltip/>
+                <Line name="eda (microsiemens)" type="monotone" dataKey="eda_cleaned" stroke="#8884d8" />
+            </LineChart><br />
+            <LineChart width={1500} height={300} data={pox_csv_file_small2}>
+                <XAxis dataKey="adjusted_time" /> 
+                <Label value="time" offset={0} position="insideBottom" />    
+                <YAxis label={{ value: 'tbd', angle: -90, position: 'insideLeft' }}/>
+                <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
+                <Legend verticalAlign="top" height={36}/>
+                <Tooltip/>
+                <Line name="pox (microsiemens)" type="monotone" dataKey="pox_adjusted" stroke="#8884d8" />
+            </LineChart>
+            <br />
+            
             {/* <Typography variant="h5" style={{margin: '20px'}}>Third Song</Typography> */}
             <Divider variant="middle">
-           <Chip label="Third Song" />
+            <Chip label="Third Song" />
             </Divider>
-
+            <br />
+            <div>
+            {media_label[2] !== "" &&
+                <audio controls>
+                <source src= {song3} type="audio/wav" />
+                </audio>
+            }
+            </div><br />
             <LineChart width={1500} height={300} data={csv_file_small3}>
                 <XAxis dataKey="adjusted_time" >
                 <Label value="time" offset={0} position="insideBottom" />    
@@ -351,14 +354,7 @@ function SingleUserData(props) {
                 <Tooltip/>
                 <Line name="pox (microsiemens)" type="monotone" dataKey="pox_adjusted" stroke="#8884d8" />
             </LineChart>
-            <br /><br />
-            <div>
-            {media_label[2] !== "" &&
-                <audio controls>
-                <source src= {song3} type="audio/wav" />
-                </audio>
-            }
-            </div>        
+            <br /><br />        
         </div>
 
     );

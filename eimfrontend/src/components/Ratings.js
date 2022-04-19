@@ -65,7 +65,7 @@ export default function Ratings({ found }) {
     else {
         return (
             <div>
-                Ratings not found
+                Loading....
             </div>
         )
     }

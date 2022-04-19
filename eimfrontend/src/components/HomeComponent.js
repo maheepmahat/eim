@@ -5,6 +5,7 @@ import {flattenArrayOfJson, songList} from "../data/data";
 
 function HomeComponent({numData, setCurrUserId}) {
 
+    //getting the data to fill the home table
     const [subject_data, set_subject_data] = useState([]);
     const [rows, setRows] = useState([]);
     useEffect(() =>{
@@ -13,6 +14,7 @@ function HomeComponent({numData, setCurrUserId}) {
         .then(subject_data =>{set_subject_data(subject_data); return subject_data;})
         .then(initialData => setRows(flattenArrayOfJson(initialData)))
     }, [])
+    //getting the song list
     const [json_data, set_json_data] = useState([]);
     useEffect(() =>{
         fetch("http://localhost:5000/api/main")

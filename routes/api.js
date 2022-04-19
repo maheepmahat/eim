@@ -20,7 +20,6 @@ router.get('/main', (req, res, next) => {
 router.get('/trials', (req, res, next) => {
   Trials.find({experiment:mongoose.Types.ObjectId("5432bc4a36ac55e198b91776")})
     .select('answers media')
-    .limit(100)
     .then((data) => res.json(data))
     .catch(next);
 });
