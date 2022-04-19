@@ -4,7 +4,7 @@ import {Button} from "@mui/material";
 import {BrowserRouter, Link, Route, Routes} from "react-router-dom";
 
 
-export default function DataTable({rows, setCurrUserId, tableHeight}) {
+export default function DataTable({rows, setCurrUserId, tableHeight, currId}) {
 
     const columns = [
         {
@@ -18,7 +18,7 @@ export default function DataTable({rows, setCurrUserId, tableHeight}) {
                         size="small"
                     >
                         <Link
-                            to={`/id=${params.value}`}
+                            to={`/user/${params.value}`}
                             onClick={() => setCurrUserId(params.value)}
                             style={{textDecoration: 'none'}}
                         >

@@ -1,9 +1,12 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect} from 'react';
 import { createFakeData, flattenArrayOfJson, songList } from "../data/data";
 import DataTable from "./DataTable";
 import { usePapaParse } from 'react-papaparse';
 import { LineChart, XAxis, YAxis, CartesianGrid, Line, Tooltip, ResponsiveContainer, Legend, Label } from 'recharts'
 import "./table.css"
+import { useParams } from 'react-router-dom'
+import Ratings from './Ratings';
+import { Chip, Divider, Typography } from '@mui/material';
 //placeholders 
 var file_id = ["", "", ""];
 var media_label = ["", "", ""];
@@ -13,7 +16,7 @@ var song1, song2, song3;
 var songMetadata = "";
 
 function SingleUserData(props) {
-
+    const {id} = useParams();
     const { readRemoteFile } = usePapaParse();    
     const [subject_data, set_subject_data] = useState([]);
     const [rows, setRows] = useState([]);
@@ -24,7 +27,7 @@ function SingleUserData(props) {
             .then(initialData => setRows(flattenArrayOfJson(initialData)))
     }, [])
 
-    var found = subject_data.filter(function (item) { return item._id === props.id; });
+    const found = subject_data.filter(function (item) { return item._id === props.id; });
     
     const [signal_id, setSignal_Id] = useState();
     useEffect(() => {
@@ -196,15 +199,16 @@ function SingleUserData(props) {
 
     return (
         <div className="App">
-            { <h1> User with id of {props.id} </h1>  }
+           
+            <Typography variant="h4" style={{margin: '20px'}}>User with id of {id}</Typography>
 
-            <DataTable rows={flattenArrayOfJson(found)} setCurrUserId={props.setCurrUserId} tableHeight={200} />
-            <br />
-            <br />
-            <br />
-            <div>
+            <DataTable rows={flattenArrayOfJson(found)} setCurrUserId={props.setCurrUserId} currId={id} tableHeight={200} />
+            <div style={{display: 'flex',  justifyContent:'center', alignItems:'center', padding: '20px 0px'}}>
+            <Ratings found={found}/>
+            </div>
+            {/* <div style={{paddingTop: "50px"}}>
             {found.length > 0 &&
-            <table class="fl-table" >
+            <table className="fl-table" >
                 <thead>
                     <tr>
                     <th>Experiments</th>
@@ -218,6 +222,7 @@ function SingleUserData(props) {
                     </tr>
                 </thead>
                 <tbody>
+                    
                     <tr>
                         <td><p>Experiment 1</p></td>
                         <td>{found[0]['answers']['ratings']['activity'][0]}</td>
@@ -252,14 +257,18 @@ function SingleUserData(props) {
                 </tbody>
             </table>
             }
-            </div>
+            </div> */}
             <br />
-            <h1>User's EDA and POX data against Time is shown below</h1><br />
-            <hr size="10" color="#324960" />
-            <br />
-            <h1>First Song</h1> <br />
-            <br />
+<<<<<<< HEAD
+           <Typography variant="h4" style={{margin: '20px'}}>Signal Information</Typography>
+           <Divider variant="middle">
+           <Chip label="First Song" />
+            </Divider>
+        
+            <LineChart width={1400} height={300} data={csv_file1}>
+=======
             <LineChart width={1500} height={300} data={csv_file_small1}>
+>>>>>>> ed7381c2d31e2dde92992a4724a8743af22e9314
                 <XAxis dataKey="adjusted_time" /> 
                 abc
                 <YAxis />
@@ -277,7 +286,7 @@ function SingleUserData(props) {
                 <Tooltip/>
                 <Line name="pox (microsiemens)" type="monotone" dataKey="pox_adjusted" stroke="#8884d8" />
             </LineChart>
-            <br />
+       
             <div>
             {media_label[0] !== "" &&
                 <audio controls>
@@ -285,10 +294,12 @@ function SingleUserData(props) {
                 </audio>
             }
             </div>
-            <hr size="10" color="#324960" />
-
-            <br />
-            <h1>Second Song</h1> <br />
+ 
+            
+            {/* <Typography variant="h5" style={{margin: '20px'}}>Second Song</Typography> */}
+            <Divider variant="middle">
+           <Chip label="Second Song" />
+            </Divider>
 
             <LineChart width={1500} height={300} data={csv_file_small2}>
                 <XAxis dataKey="adjusted_time" /> 
@@ -315,9 +326,10 @@ function SingleUserData(props) {
                 </audio>
             }
             </div> 
-            <br />
-            <hr size="10" color="#324960" />
-            <h1>Third Song</h1> <br />
+            {/* <Typography variant="h5" style={{margin: '20px'}}>Third Song</Typography> */}
+            <Divider variant="middle">
+           <Chip label="Third Song" />
+            </Divider>
 
             <LineChart width={1500} height={300} data={csv_file_small3}>
                 <XAxis dataKey="adjusted_time" >
