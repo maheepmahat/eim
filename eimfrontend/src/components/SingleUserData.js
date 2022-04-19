@@ -92,8 +92,8 @@ function SingleUserData(props) {
     //dividing the file to 500 parts and choosing 1 datapoint from each part.
     if(signal_id !== undefined && csv_file1.length > 0) {
         
-        var subset_size = Math.floor(csv_file1.length / 500);
-        for(var i=0; i<500; i++)
+        var subset_size = Math.floor(csv_file1.length / 800);
+        for(var i=0; i<800; i++)
             {
                 csv_file_small1[i] = csv_file1[i*subset_size];
             }
@@ -111,8 +111,8 @@ function SingleUserData(props) {
     },[signal_id])
     if(signal_id !== undefined && csv_file2.length > 0) {
         
-        var subset_size = Math.floor(csv_file2.length / 500);
-        for(var i=0; i<500; i++)
+        var subset_size = Math.floor(csv_file2.length / 800);
+        for(var i=0; i<800; i++)
             {
                 csv_file_small2[i] = csv_file2[i*subset_size];
             }
@@ -130,8 +130,8 @@ function SingleUserData(props) {
     },[signal_id])
     if(signal_id !== undefined && csv_file3.length > 0) {
         
-        var subset_size = Math.floor(csv_file3.length / 500);
-        for(var i=0; i<500; i++)
+        var subset_size = Math.floor(csv_file3.length / 800);
+        for(var i=0; i<800; i++)
             {
                 csv_file_small3[i] = csv_file3[i*subset_size];
             }
@@ -268,7 +268,7 @@ function SingleUserData(props) {
                 <Tooltip/>
                 <Line name="eda (microsiemens)" type="monotone" dataKey="eda_cleaned" stroke="#8884d8" />
             </LineChart> <br />
-            <LineChart width={1400} height={300} data={pox_csv_file_small1}>
+            <LineChart width={1500} height={300} data={pox_csv_file_small1}>
                 <XAxis dataKey="adjusted_time" /> 
                 abc
                 <YAxis />
@@ -290,7 +290,7 @@ function SingleUserData(props) {
             <br />
             <h1>Second Song</h1> <br />
 
-            <LineChart width={1400} height={300} data={csv_file_small2}>
+            <LineChart width={1500} height={300} data={csv_file_small2}>
                 <XAxis dataKey="adjusted_time" /> 
                 <YAxis />
                 <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
@@ -299,7 +299,7 @@ function SingleUserData(props) {
                 <Line name="eda (microsiemens)" type="monotone" dataKey="eda_cleaned" stroke="#8884d8" />
                 <Line name="heart rate (beats per minute)" type="monotone" dataKey="hr" stroke="#82ca9d" />
             </LineChart><br />
-            <LineChart width={1400} height={300} data={pox_csv_file_small2}>
+            <LineChart width={1500} height={300} data={pox_csv_file_small2}>
                 <XAxis dataKey="adjusted_time" /> 
                 <YAxis />
                 <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
@@ -319,7 +319,7 @@ function SingleUserData(props) {
             <hr size="10" color="#324960" />
             <h1>Third Song</h1> <br />
 
-            <LineChart width={1400} height={300} data={csv_file_small3}>
+            <LineChart width={1500} height={300} data={csv_file_small3}>
                 <XAxis dataKey="adjusted_time" >
                 <Label value="time" offset={0} position="insideBottom" />    
                 </XAxis> 
@@ -329,7 +329,7 @@ function SingleUserData(props) {
                 <Tooltip/>
                 <Line name="eda (microsiemens)" type="monotone" dataKey="eda_cleaned" stroke="#8884d8" />
             </LineChart> <br />
-            <LineChart width={1400} height={300} data={pox_csv_file_small3}>
+            <LineChart width={1500} height={300} data={pox_csv_file_small3}>
                 <XAxis dataKey="adjusted_time" >
                 <Label value="time" offset={0} position="insideBottom" />    
                 </XAxis> 
