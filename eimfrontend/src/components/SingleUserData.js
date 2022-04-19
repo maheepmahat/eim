@@ -6,6 +6,7 @@ import { LineChart, XAxis, YAxis, CartesianGrid, Line, Tooltip, ResponsiveContai
 import "./table.css"
 import { useParams } from 'react-router-dom'
 import Ratings from './Ratings';
+import { Chip, Divider, Typography } from '@mui/material';
 //placeholders 
 var file_id = ["", "", ""];
 var media_label = ["", "", ""];
@@ -138,11 +139,14 @@ function SingleUserData(props) {
 
     return (
         <div className="App">
-            { <h1> User with id of {id} </h1>  }
+           
+            <Typography variant="h4" style={{margin: '20px'}}>User with id of {id}</Typography>
 
             <DataTable rows={flattenArrayOfJson(found)} setCurrUserId={props.setCurrUserId} currId={id} tableHeight={200} />
-            <Ratings ratings={found[0]['answers']['ratings']}/>
-            <div style={{paddingTop: "50px"}}>
+            <div style={{display: 'flex',  justifyContent:'center', alignItems:'center', padding: '20px 0px'}}>
+            <Ratings found={found}/>
+            </div>
+            {/* <div style={{paddingTop: "50px"}}>
             {found.length > 0 &&
             <table className="fl-table" >
                 <thead>
@@ -158,6 +162,7 @@ function SingleUserData(props) {
                     </tr>
                 </thead>
                 <tbody>
+                    
                     <tr>
                         <td><p>Experiment 1</p></td>
                         <td>{found[0]['answers']['ratings']['activity'][0]}</td>
@@ -192,13 +197,13 @@ function SingleUserData(props) {
                 </tbody>
             </table>
             }
-            </div>
+            </div> */}
             <br />
-            <h1>User's EDA and POX data against Time is shown below</h1><br />
-            <hr size="10" color="#324960" />
-            <br />
-            <h1>First Song</h1> <br />
-            <br />
+           <Typography variant="h4" style={{margin: '20px'}}>Signal Information</Typography>
+           <Divider variant="middle">
+           <Chip label="First Song" />
+            </Divider>
+        
             <LineChart width={1400} height={300} data={csv_file1}>
                 <XAxis dataKey="adjusted_time" /> 
                 abc
@@ -217,7 +222,7 @@ function SingleUserData(props) {
                 <Tooltip/>
                 <Line name="pox (microsiemens)" type="monotone" dataKey="pox_adjusted" stroke="#8884d8" />
             </LineChart>
-            <br />
+       
             <div>
             {media_label[0] !== "" &&
                 <audio controls>
@@ -225,10 +230,12 @@ function SingleUserData(props) {
                 </audio>
             }
             </div>
-            <hr size="10" color="#324960" />
-
-            <br />
-            <h1>Second Song</h1> <br />
+ 
+            
+            {/* <Typography variant="h5" style={{margin: '20px'}}>Second Song</Typography> */}
+            <Divider variant="middle">
+           <Chip label="Second Song" />
+            </Divider>
 
             <LineChart width={1400} height={300} data={csv_file2}>
                 <XAxis dataKey="adjusted_time" /> 
@@ -255,9 +262,10 @@ function SingleUserData(props) {
                 </audio>
             }
             </div> 
-            <br />
-            <hr size="10" color="#324960" />
-            <h1>Third Song</h1> <br />
+            {/* <Typography variant="h5" style={{margin: '20px'}}>Third Song</Typography> */}
+            <Divider variant="middle">
+           <Chip label="Third Song" />
+            </Divider>
 
             <LineChart width={1400} height={300} data={csv_file3}>
                 <XAxis dataKey="adjusted_time" >
