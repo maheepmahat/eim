@@ -8,6 +8,7 @@ import { useParams } from 'react-router-dom'
 import Ratings from './Ratings';
 import { Chip, Divider, Typography } from '@mui/material';
 import GraphAudio from './GraphAudio';
+import SmallDataTable from './SmallDataTable';
 //placeholders 
 let file_id = ["", "", ""];
 let media_label = ["", "", ""];
@@ -221,7 +222,8 @@ function SingleUserData(props) {
            
             <Typography variant="h4" style={{margin: '20px'}}>User with id of {id}</Typography>
 
-            <DataTable hideFooter={true} rows={flattenArrayOfJson(found)} setCurrUserId={props.setCurrUserId} tableHeight={200} />
+            <DataTable rows={flattenArrayOfJson(found)} setCurrUserId={props.setCurrUserId} tableHeight={160} />
+
             <div style={{display: 'flex',  justifyContent:'center', alignItems:'center', padding: '20px 0px'}}>
             <Ratings found={found}/>
             </div>

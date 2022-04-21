@@ -9,15 +9,6 @@ import Paper from '@mui/material/Paper';
 import { Rating } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
-
-// const [ratings, set_ratings] = useState([])
-// useEffect(() => {
-//     fetch("http://localhost:5000/api/trials")
-//         .then(res => res.json())
-//         .then(data => set_ratings(data.filter(function (item) { return item._id === props.id; })));
-
-// }, [])
-
 const titles = ['Experiments', 'Activity', 'Engagement', 'Familiarity', 'Chills', 'Positivity', 'Power', 'Like & dislike'];
 const titleCells = titles.map((title, i) => {
     return <TableCell align="center" key={i}>{title}</TableCell>
@@ -50,7 +41,7 @@ export default function Ratings({ found }) {
                             <TableCell component="th" scope="row" align="center"    >{i + 1}</TableCell>
                             {Object.keys(found[0]['answers']['ratings']).map((f) => {
                                     return <TableCell align="center">
-                                        <StyledRating name="read-only" value={found[0]['answers']['ratings'][f][i]} readOnly /> 
+                                        <StyledRating /*sx={{color: getColor(found[0]['answers']['ratings'][f][i])}}*/ name="read-only" value={found[0]['answers']['ratings'][f][i]} readOnly /> 
                                         </TableCell>     
                                    
                                 })}
@@ -68,5 +59,13 @@ export default function Ratings({ found }) {
                 Loading....
             </div>
         )
+    }
+}
+
+function getColor(value){
+    if(value < 2){
+        return 'red'
+    } else {
+        return '#455A64'
     }
 }
