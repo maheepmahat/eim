@@ -63,7 +63,7 @@ export default function GraphAudio({ title, eda_file, pox_file, media_label, son
                     </audio>
                 }
             </div>
-            {/* <div className='audio'>
+            <div className='audio'>
                 <Wavesurfer 
                 src={song}
                 position={position}
@@ -79,7 +79,7 @@ export default function GraphAudio({ title, eda_file, pox_file, media_label, son
                 <IconButton size="large" onClick={() => setPlaying(!playing)}>
                     <PlayArrowIcon/>
                 </IconButton>
-            </div> */}
+            </div>
         </div>
     )
 }

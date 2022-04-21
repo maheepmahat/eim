@@ -3,6 +3,11 @@ import {DataGrid, GridToolbar} from '@mui/x-data-grid';
 import {Button} from "@mui/material";
 import {BrowserRouter, Link, Route, Routes} from "react-router-dom";
 
+function getDate(params){
+    // let date = new Date(params.row['answers.dob']);
+    // return  date.getDate()+'/' + (date.getMonth()+1) + '/'+date.getFullYear()
+    return params.value.split('-')[0]
+}
 
 export default function DataTable({rows, setCurrUserId, tableHeight, hideFooter}) {
     const columns = [
@@ -43,14 +48,9 @@ export default function DataTable({rows, setCurrUserId, tableHeight, hideFooter}
         },{
             field: 'answers.dob',
             flex: 1,
-            renderCell: (params) => (
-                <p>
-                    {params.value.split('T')[0]}
-                </p>
-            ),
+            valueGetter: getDate,
             headerName: 'DOB',
-            //type: 'date',
-            //editable: false 
+            type: 'number',
 
         },{
             field: 'answers.musical_background',
