@@ -3,7 +3,7 @@ import { LineChart, XAxis, YAxis, CartesianGrid, Line, Tooltip, ResponsiveContai
 import { Chip, Divider, Typography } from '@mui/material';
 import './GraphAudio.css';
 
-export default function GraphAudio({ title, eda_file, pox_file, media_label, song}) {
+export default function GraphAudio({ title, eda_file, pox_file, media_label, song, songName}) {
     return (
         
         <div className='graphaudio'>
@@ -36,6 +36,11 @@ export default function GraphAudio({ title, eda_file, pox_file, media_label, son
             </ResponsiveContainer>
             
             
+            </div>
+            <div>
+                {songName.length > 0 &&
+                    <p>{songName[0]['title']} by {songName[0]['artist']}</p>
+                }
             </div>
             <div>
                 {media_label[0] !== "" &&

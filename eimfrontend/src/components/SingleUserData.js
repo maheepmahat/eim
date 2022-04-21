@@ -9,12 +9,12 @@ import Ratings from './Ratings';
 import { Chip, Divider, Typography } from '@mui/material';
 import GraphAudio from './GraphAudio';
 //placeholders 
-var file_id = ["", "", ""];
-var media_label = ["", "", ""];
-var derived_eda_file = ["", "", ""];
-var derived_pox_file = ["", "", ""];
-var song1, song2, song3;
-var songMetadata = "";
+let file_id = ["", "", ""];
+let media_label = ["", "", ""];
+let derived_eda_file = ["", "", ""];
+let derived_pox_file = ["", "", ""];
+let song1, song2, song3;
+let songMetadata = "";
 
 function SingleUserData(props) {
     const {id} = useParams();
@@ -27,7 +27,7 @@ function SingleUserData(props) {
             .then(subject_data => { set_subject_data(subject_data); return subject_data; })
             .then(initialData => setRows(flattenArrayOfJson(initialData)))
     }, [])
-
+    //find the row of current user
     const found = subject_data.filter(function (item) { return item._id === props.id; });
     
     const [signal_id, setSignal_Id] = useState();
@@ -49,6 +49,7 @@ function SingleUserData(props) {
      * timestamps: 47982 -- x axis
      * }
      */
+
     if(signal_id !== undefined) {
         file_id[0] = signal_id[0]['_id'];
         file_id[1] = signal_id[1]['_id'];
@@ -64,23 +65,39 @@ function SingleUserData(props) {
         derived_pox_file[2] = signal_id[2]['derived_pox_data_file'];
         //songMetadata = songInfo[0]['title'];
     }
-    /* const [songInfo, set_songInfo] = useState();
-    useEffect(() => {
-        fetch("http://localhost:5000/api/songname/"+songMetadata)
-        .then(res => res.json())
-        .then(songInfo =>set_songInfo(songInfo))
-    },[songMetadata]) */
 
     song1 = "http://localhost:5000/api/song/" + media_label[0];
     song2 = "http://localhost:5000/api/song/" + media_label[1];
     song3 = "http://localhost:5000/api/song/" + media_label[2];
     
-    var csv_file_small1=[];
-    var csv_file_small2=[];
-    var csv_file_small3=[];
-    var pox_csv_file_small1=[];
-    var pox_csv_file_small2=[];
-    var pox_csv_file_small3=[];
+    let csv_file_small1=[];
+    let csv_file_small2=[];
+    let csv_file_small3=[];
+    let pox_csv_file_small1=[];
+    let pox_csv_file_small2=[];
+    let pox_csv_file_small3=[];
+
+    const [songInfo1, set_songInfo1] = useState([]);
+    useEffect(() => {
+        fetch("http://localhost:5000/api/songname/"+ media_label[0])
+        .then(res => res.json())
+        .then(songInfo1 =>set_songInfo1(songInfo1))
+    },[signal_id]) 
+    const [songInfo2, set_songInfo2] = useState([]);
+    useEffect(() => {
+        fetch("http://localhost:5000/api/songname/"+ media_label[1])
+        .then(res => res.json())
+        .then(songInfo2 =>set_songInfo2(songInfo2))
+    },[signal_id]) 
+    const [songInfo3, set_songInfo3] = useState([]);
+    useEffect(() => {
+        fetch("http://localhost:5000/api/songname/"+ media_label[2])
+        .then(res => res.json())
+        .then(songInfo3 =>set_songInfo3(songInfo3))
+    },[signal_id]) 
+    console.log("songInfo " + songInfo1);
+
+
     const [csv_file1, set_csv_file1] = useState([]);
     useEffect(() => {
         if(file_id[0] !== "") 
@@ -197,6 +214,7 @@ function SingleUserData(props) {
                 pox_csv_file_small3[i] = pox_csv_file3[i*subset_size];
             }
     }
+    
 
     return (
         <div className="App">
@@ -209,9 +227,9 @@ function SingleUserData(props) {
             </div>
             <Typography variant="h4" style={{margin: '10px'}}>Signal Information</Typography>
 
-            <GraphAudio title="First Song" eda_file={csv_file1} pox_file={pox_csv_file_small1} media_label={media_label} song={song1}/>
-            <GraphAudio title="Second Song" eda_file={csv_file2} pox_file={pox_csv_file_small2} media_label={media_label} song={song2}/>
-            <GraphAudio title="Third Song" eda_file={csv_file3} pox_file={pox_csv_file_small3} media_label={media_label} song={song3}/>
+            <GraphAudio title="First Song" eda_file={csv_file1} pox_file={pox_csv_file_small1} media_label={media_label} song={song1} songName={songInfo1}/>
+            <GraphAudio title="Second Song" eda_file={csv_file2} pox_file={pox_csv_file_small2} media_label={media_label} song={song2} songName={songInfo2}/>
+            <GraphAudio title="Third Song" eda_file={csv_file3} pox_file={pox_csv_file_small3} media_label={media_label} song={song3} songName={songInfo3}/>
     
         </div>
 
