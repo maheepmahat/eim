@@ -45,7 +45,7 @@ export default function DataTable({rows, setCurrUserId, tableHeight, hideFooter}
             flex: 1,
             renderCell: (params) => (
                 <p>
-                    {params.value.split('T')[0]}
+                    {params.value.split('-')[0]}
                 </p>
             ),
             headerName: 'DOB',
@@ -106,7 +106,7 @@ export default function DataTable({rows, setCurrUserId, tableHeight, hideFooter}
             flex: 1,
             renderCell: (params) => (
                 <p>
-                    {params.value.split('T')[0]}
+                    {params.value.split('-')[0]}
                 </p>
             ),
             headerName: 'DOB',

@@ -2,9 +2,9 @@ import React, { useState } from 'react';
 import { LineChart, XAxis, YAxis, CartesianGrid, Line, Tooltip, ResponsiveContainer, Legend, Label, Brush } from 'recharts'
 import { Button, Chip, Divider, Grid, IconButton, Typography } from '@mui/material';
 import './GraphAudio.css';
-// import Waveform from "react-audio-waveform"
-import Wavesurfer from "react-wavesurfer.js";
-import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+//import Waveform from "react-audio-waveform"
+//import Wavesurfer from "react-wavesurfer.js";
+//import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 
 export default function GraphAudio({ title, eda_file, pox_file, media_label, song, songName}) {
     const [position, setPosition] = useState(0);
