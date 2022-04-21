@@ -5,7 +5,6 @@ import {BrowserRouter, Link, Route, Routes} from "react-router-dom";
 
 
 export default function DataTable({rows, setCurrUserId, tableHeight, hideFooter}) {
-
     const columns = [
         {
             field: 'id', headerName: 'User',
@@ -44,9 +43,14 @@ export default function DataTable({rows, setCurrUserId, tableHeight, hideFooter}
         },{
             field: 'answers.dob',
             flex: 1,
+            renderCell: (params) => (
+                <p>
+                    {params.value.split('T')[0]}
+                </p>
+            ),
             headerName: 'DOB',
-            type: 'date',
-            editable: false
+            //type: 'date',
+            //editable: false 
 
         },{
             field: 'answers.musical_background',
@@ -100,9 +104,12 @@ export default function DataTable({rows, setCurrUserId, tableHeight, hideFooter}
         },{
             field: 'answers.dob',
             flex: 1,
+            renderCell: (params) => (
+                <p>
+                    {params.value.split('T')[0]}
+                </p>
+            ),
             headerName: 'DOB',
-            type: 'date',
-            editable: false
 
         },{
             field: 'answers.musical_background',
@@ -138,7 +145,7 @@ export default function DataTable({rows, setCurrUserId, tableHeight, hideFooter}
         
     ];
     
-
+   
     return (
         <>
             <div style={{ height: tableHeight }} >

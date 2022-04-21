@@ -43,6 +43,7 @@ function SingleUserData(props) {
     //find the row of current user
     const found = subject_data.filter(function (item) { return item._id === props.id; });
     
+    //get the signal id, label and object id for the signal data & files 
     const [signal_id, setSignal_Id] = useState();
     useEffect(() => {
         fetch("http://localhost:5000/api/signalData/"+props.id)
@@ -79,6 +80,7 @@ function SingleUserData(props) {
         //songMetadata = songInfo[0]['title'];
     }
 
+    //set the URL's for the audio call
     song1 = "http://localhost:5000/api/song/" + media_label[0];
     song2 = "http://localhost:5000/api/song/" + media_label[1];
     song3 = "http://localhost:5000/api/song/" + media_label[2];
@@ -90,6 +92,7 @@ function SingleUserData(props) {
     let pox_csv_file_small2=[];
     let pox_csv_file_small3=[];
 
+    //get the song name and the artist name
     const [songInfo1, set_songInfo1] = useState([]);
     useEffect(() => {
         fetch("http://localhost:5000/api/songname/"+ media_label[0])
@@ -110,7 +113,7 @@ function SingleUserData(props) {
     },[signal_id]) 
     console.log("songInfo " + songInfo1);
 
-
+    //get the eda file
     const [csv_file1, set_csv_file1] = useState([]);
     useEffect(() => {
         if(file_id[0] !== "") 
@@ -170,6 +173,7 @@ function SingleUserData(props) {
                 csv_file_small3[i] = csv_file3[i*subset_size];
             }
     }
+    //get the pox data file
     const [pox_csv_file1, set_pox_csv_file1] = useState([]);
     useEffect(() => {
         readRemoteFile("http://localhost:5000/api/signals/"+derived_pox_file[0], {
