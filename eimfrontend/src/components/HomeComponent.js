@@ -2,6 +2,8 @@ import SongSelector from './SongSelector'
 import DataTable from "./DataTable";
 import React, { useState, useEffect } from 'react';
 import {flattenArrayOfJson, songList} from "../data/data";
+import { Box } from '@mui/system';
+import { Typography } from '@mui/material';
 
 function HomeComponent({numData, setCurrUserId}) {
 
@@ -26,6 +28,15 @@ function HomeComponent({numData, setCurrUserId}) {
 
    return (
         <div className="App">
+
+            <Box sx={{margin: "2%", padding:10, border: '1px solid lightgrey', borderRadius: 2}}>
+            <Typography color="primary.dark" variant="h3">Welcome to EiM!</Typography>
+            <Typography paragraph variant="body">
+                Emotion in Motion is the largest database with physiological data in response to music to date! 
+                It was collected over the course of 5 years and has amassed data from various locations like New York, Ireland, Dublin, Norway, Singapore, Philippines, and Taiwan.
+                We've created this website so you may explore this data on your own and discover new insights!
+            </Typography>
+            </Box>
             <SongSelector songList={json_data} setRows={setRows} rows={flattenArrayOfJson(subject_data)} />
             <DataTable rows={rows} setCurrUserId={setCurrUserId} tableHeight={800}/>
         </div>

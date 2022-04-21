@@ -1,13 +1,14 @@
 import React from 'react';
-import {Autocomplete, TextField} from '@mui/material';
+import {Autocomplete, MenuItem, TextField} from '@mui/material';
 import './SongSelector.css'
 import {filterDataBasedOnSong} from "../data/data";
-
+import { Box } from '@mui/system';
 export default class SongSelector extends React.Component {
     constructor(props) {
         super(props);
         this.state = {selected: ''}
         this.handleSelection = this.handleSelection.bind(this)
+        console.log(this.props.songList)
     }
 
     handleSelection(event, value, reason){
@@ -16,7 +17,7 @@ export default class SongSelector extends React.Component {
             this.setState({
                 selected: value._id
         }, () => {
-            console.log(this.state)
+            
             this.props.setRows(filterDataBasedOnSong(this.state.selected === ''? null: this.state.selected, this.props.rows))})
         
         }
@@ -35,6 +36,11 @@ export default class SongSelector extends React.Component {
                 id="song_selector"
                 options={this.props.songList}
                 sx={{ width: 600 }}
+                // renderOption={(props, option) => (
+                //     <Box component="li" {...props} key={option._id}>
+                //       {option.title} by {option.artist}
+                //     </Box>
+                //   )}
                 getOptionLabel={(option) => `${option.title} by ${option.artist}`}
                 renderInput={(params) => <TextField {...params}  label="Select a song" />}
             />

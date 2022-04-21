@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { LineChart, XAxis, YAxis, CartesianGrid, Line, Tooltip, ResponsiveContainer, Legend, Label, Brush } from 'recharts'
+import { LineChart, XAxis, YAxis, CartesianGrid, Line, Tooltip, ResponsiveContainer, Legend, Label, Brush, ReferenceLine } from 'recharts'
 import { Button, Chip, Divider, Grid, IconButton, Typography } from '@mui/material';
 import './GraphAudio.css';
-//import Waveform from "react-audio-waveform"
-//import Wavesurfer from "react-wavesurfer.js";
-//import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+// import Waveform from "react-audio-waveform"
+import Wavesurfer from "react-wavesurfer.js";
+import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import PauseIcon from '@mui/icons-material/Pause';
 
 export default function GraphAudio({ title, eda_file, pox_file, media_label, song, songName}) {
     const [position, setPosition] = useState(0);
@@ -17,8 +18,8 @@ export default function GraphAudio({ title, eda_file, pox_file, media_label, son
     const onReadyHandler = () => console.log("done loading!");
     return (
         <div className='graphaudio'>
-            <Divider variant="middle" style={{ margin: '40px 0px' }}>
-                <Chip label={title} />
+            <Divider color="primary" variant="middle" style={{ margin: '20px 0px' }}>
+                <Chip label={title} color="primary" />
             </Divider>
             <div>
                 {songName.length > 0 &&
@@ -28,22 +29,42 @@ export default function GraphAudio({ title, eda_file, pox_file, media_label, son
             <div className='graphs'>
                 <ResponsiveContainer aspect={4} width={'80%'}>
 
-                    <LineChart data={eda_file}>
-                        {/* <Brush dataKey="adjusted_time" /> */}
-                        <XAxis dataKey="adjusted_time" />
+                    <LineChart data={eda_file}
+                     margin={{ top: 5, right: 30, left: 20, bottom: 20 }}>
+                       
+                        <XAxis 
+                        type="number" 
+                        dataKey="adjusted_time" 
+                        // interval='preserveStartEnd' 
+                        label='time' 
+                        unit={'s'}
+                        // tickCount={6}
+                        domain={[0, dataMax => Math.ceil(dataMax)]}
+                        />
                         abc
-                        <YAxis />
+                        <YAxis 
+                        label='eda (&#956;S)' 
+                        />
                         <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
                         <Legend verticalAlign="top" height={36} />
                         <Tooltip />
-
+                        {/* USE REFERENCE LINE BELOW TO SYNC WITH AUDIO? */}
+                        {/* <ReferenceLine x={40.01} /> */} 
                         <Line name="eda (microsiemens)" type="monotone" dataKey="eda_smoothed" stroke="#8884d8" dot={false} />
                     </LineChart>
                 </ResponsiveContainer>
 
                 <ResponsiveContainer aspect={4} width={'80%'} >
                     <LineChart data={pox_file}>
-                        <XAxis dataKey="adjusted_time" />
+                    <XAxis 
+                        type="number" 
+                        dataKey="adjusted_time" 
+                        // interval='preserveStartEnd' 
+                        label='time' 
+                        unit={'s'}
+                        // tickCount={6}
+                        domain={[0, dataMax => Math.ceil(dataMax)]}
+                        />
                         abc
                         <YAxis />
                         <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
@@ -52,8 +73,6 @@ export default function GraphAudio({ title, eda_file, pox_file, media_label, son
                         <Line name="pox (microsiemens)" type="monotone" dataKey="pox_adjusted" stroke="#8884d8" dot={false} />
                     </LineChart>
                 </ResponsiveContainer>
-
-
             </div>
             
             <div>
@@ -63,23 +82,27 @@ export default function GraphAudio({ title, eda_file, pox_file, media_label, son
                     </audio>
                 }
             </div>
-            {/* <div className='audio'>
-                <Wavesurfer 
+            <div sx={{display: 'flex', justifyContent: 'center'}}>
+                <Wavesurfer sx={{width: '80%'}}
                 src={song}
+                // color='#5e35b1'
+                options={{backgroundColor: "red"}}
                 position={position}
                 onPositionChange={handlePositionChange}
                 onReady={onReadyHandler} 
                 muted={muted}
                 playing={playing}
                 height={100}
-                width={"80%"}
                 />
             </div>
-            <div>
+            <div >
                 <IconButton size="large" onClick={() => setPlaying(!playing)}>
-                    <PlayArrowIcon/>
+                    {!playing &&
+                    <PlayArrowIcon/>}
+                    {playing && 
+                    <PauseIcon/>}
                 </IconButton>
-            </div> */}
+            </div>
         </div>
     )
 }

@@ -5,7 +5,15 @@ import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import SingleUserData from "./components/SingleUserData";
 import { AppBar, Button, Toolbar } from "@mui/material";
 import { Box } from '@mui/system';
+import { createTheme } from '@mui/material/styles';
+import { ThemeProvider } from '@emotion/react';
 
+const theme = createTheme({
+  palette: {
+    primary: {main:'#455A64'},
+    secondary:{main: '#4527a0'}
+  },
+});
 
 
 
@@ -14,11 +22,12 @@ function App() {
 
     return (
         <div className="App">
+    <ThemeProvider theme={theme}>
             <BrowserRouter>
                 <Box sx={{ flexGrow: 1 }}>
-                    <AppBar position="static" elevation="0" sx={{ bgcolor: "#324960" }}>
+                    <AppBar position="static" elevation="0" color="primary">
                         <Toolbar>
-                            <Button href={'/'} className="button">
+                            <Button href={'/'} className="button" sx={{color: "white"}}>
                                 Home
                             </Button>
                         </Toolbar>
@@ -30,6 +39,7 @@ function App() {
                     <Route exact path='/' element={< HomeComponent numData={100} setCurrUserId={setCurrUserId} />}></Route>
                 </Routes>
             </BrowserRouter>
+            </ThemeProvider>
         </div>
     )
 }

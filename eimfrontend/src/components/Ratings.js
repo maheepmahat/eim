@@ -6,10 +6,10 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Rating } from '@mui/material';
+import { CircularProgress, Rating } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
-const titles = ['Experiments', 'Activity', 'Engagement', 'Familiarity', 'Chills', 'Positivity', 'Power', 'Like & dislike'];
+const titles = ['Song', 'Activity', 'Engagement', 'Familiarity', 'Chills', 'Positivity', 'Power', 'Like'];
 const titleCells = titles.map((title, i) => {
     return <TableCell align="center" key={i}>{title}</TableCell>
 })
@@ -41,7 +41,7 @@ export default function Ratings({ found }) {
                             <TableCell component="th" scope="row" align="center"    >{i + 1}</TableCell>
                             {Object.keys(found[0]['answers']['ratings']).map((f) => {
                                     return <TableCell align="center">
-                                        <StyledRating /*sx={{color: getColor(found[0]['answers']['ratings'][f][i])}}*/ name="read-only" value={found[0]['answers']['ratings'][f][i]} readOnly /> 
+                                        <StyledRating /*sx={{color: getColor(found[0]['answers']['ratings'][f][i])}}*/ name={"rating-"+f} value={found[0]['answers']['ratings'][f][i]} readOnly /> 
                                         </TableCell>     
                                    
                                 })}
@@ -56,7 +56,7 @@ export default function Ratings({ found }) {
     else {
         return (
             <div>
-                Loading....
+                <CircularProgress color="primary"/>
             </div>
         )
     }
