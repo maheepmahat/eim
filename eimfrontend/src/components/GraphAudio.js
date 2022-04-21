@@ -10,6 +10,11 @@ export default function GraphAudio({ title, eda_file, pox_file, media_label, son
             <Divider variant="middle" style={{margin: '40px 0px'}}>
                 <Chip label={title} />
             </Divider>
+            <div>
+                {songName.length > 0 &&
+                    <p>{songName[0]['title']} by {songName[0]['artist']}</p>
+                }
+            </div>
             <div className='graphs'>          
             <ResponsiveContainer aspect={4} width={'80%'}>
             <LineChart  width={1400} height={300} data={eda_file}>
@@ -34,14 +39,8 @@ export default function GraphAudio({ title, eda_file, pox_file, media_label, son
                 <Line name="pox (microsiemens)" type="monotone" dataKey="pox_adjusted" stroke="#8884d8" dot={false} />
             </LineChart>
             </ResponsiveContainer>
-            
-            
             </div>
-            <div>
-                {songName.length > 0 &&
-                    <p>{songName[0]['title']} by {songName[0]['artist']}</p>
-                }
-            </div>
+            
             <div>
                 {media_label[0] !== "" &&
                     <audio controls className='audio'>
