@@ -82,8 +82,8 @@ export default function GraphAudio({ title, eda_file, pox_file, media_label, son
                     </audio>
                 }
             </div>
-            <div className='audio'>
-                <Wavesurfer 
+            <div sx={{display: 'flex', justifyContent: 'center'}}>
+                <Wavesurfer sx={{width: '80%'}}
                 src={song}
                 // color='#5e35b1'
                 options={{backgroundColor: "red"}}
@@ -93,10 +93,9 @@ export default function GraphAudio({ title, eda_file, pox_file, media_label, son
                 muted={muted}
                 playing={playing}
                 height={100}
-                width={"80%"}
                 />
             </div>
-            <div>
+            <div >
                 <IconButton size="large" onClick={() => setPlaying(!playing)}>
                     {!playing &&
                     <PlayArrowIcon/>}
