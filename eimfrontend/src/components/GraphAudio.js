@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { LineChart, XAxis, YAxis, CartesianGrid, Line, Tooltip, ResponsiveContainer, Legend, Label, Brush } from 'recharts'
+import { LineChart, XAxis, YAxis, CartesianGrid, Line, Tooltip, ResponsiveContainer, Legend, Label, Brush, ReferenceLine } from 'recharts'
 import { Button, Chip, Divider, Grid, IconButton, Typography } from '@mui/material';
 import './GraphAudio.css';
 // import Waveform from "react-audio-waveform"
@@ -18,7 +18,7 @@ export default function GraphAudio({ title, eda_file, pox_file, media_label, son
     const onReadyHandler = () => console.log("done loading!");
     return (
         <div className='graphaudio'>
-            <Divider variant="middle" style={{ margin: '40px 0px' }}>
+            <Divider color="primary" variant="middle" style={{ margin: '40px 0px' }}>
                 <Chip label={title} color="primary" />
             </Divider>
             <div>
@@ -29,22 +29,42 @@ export default function GraphAudio({ title, eda_file, pox_file, media_label, son
             <div className='graphs'>
                 <ResponsiveContainer aspect={4} width={'80%'}>
 
-                    <LineChart data={eda_file}>
+                    <LineChart data={eda_file}
+                     margin={{ top: 5, right: 30, left: 20, bottom: 20 }}>
                        
-                        <XAxis dataKey="adjusted_time" />
+                        <XAxis 
+                        type="number" 
+                        dataKey="adjusted_time" 
+                        // interval='preserveStartEnd' 
+                        label='time' 
+                        unit={'s'}
+                        // tickCount={6}
+                        domain={[0, dataMax => Math.ceil(dataMax)]}
+                        />
                         abc
-                        <YAxis />
+                        <YAxis 
+                        label='eda (&#956;S)' 
+                        />
                         <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
                         <Legend verticalAlign="top" height={36} />
                         <Tooltip />
-
+                        {/* USE REFERENCE LINE BELOW TO SYNC WITH AUDIO? */}
+                        {/* <ReferenceLine x={40.01} /> */} 
                         <Line name="eda (microsiemens)" type="monotone" dataKey="eda_smoothed" stroke="#8884d8" dot={false} />
                     </LineChart>
                 </ResponsiveContainer>
 
                 <ResponsiveContainer aspect={4} width={'80%'} >
                     <LineChart data={pox_file}>
-                        <XAxis dataKey="adjusted_time" />
+                    <XAxis 
+                        type="number" 
+                        dataKey="adjusted_time" 
+                        // interval='preserveStartEnd' 
+                        label='time' 
+                        unit={'s'}
+                        // tickCount={6}
+                        domain={[0, dataMax => Math.ceil(dataMax)]}
+                        />
                         abc
                         <YAxis />
                         <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
@@ -53,8 +73,6 @@ export default function GraphAudio({ title, eda_file, pox_file, media_label, son
                         <Line name="pox (microsiemens)" type="monotone" dataKey="pox_adjusted" stroke="#8884d8" dot={false} />
                     </LineChart>
                 </ResponsiveContainer>
-
-
             </div>
             
             <div>
