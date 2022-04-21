@@ -5,6 +5,6 @@ To run backend server:
 2. `cd eim` 
 3. `npm start`
 
-To run frontend server:
+To run react frontend:
 1. `cd eim/eimfrontend`
 2. `npm start`
