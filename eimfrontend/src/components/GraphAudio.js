@@ -6,9 +6,7 @@ import './GraphAudio.css';
 import Wavesurfer from "react-wavesurfer.js";
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
 
-
-
-export default function GraphAudio({ title, eda_file, pox_file, media_label, song }) {
+export default function GraphAudio({ title, eda_file, pox_file, media_label, song, songName}) {
     const [position, setPosition] = useState(0);
     const [muted, setMuted] = useState(false);
     const [playing, setPlaying] = useState(false);
@@ -17,13 +15,16 @@ export default function GraphAudio({ title, eda_file, pox_file, media_label, son
     };
 
     const onReadyHandler = () => console.log("done loading!");
-
-    
     return (
         <div className='graphaudio'>
             <Divider variant="middle" style={{ margin: '40px 0px' }}>
                 <Chip label={title} />
             </Divider>
+            <div>
+                {songName.length > 0 &&
+                    <p>{songName[0]['title']} by {songName[0]['artist']}</p>
+                }
+            </div>
             <div className='graphs'>
                 <ResponsiveContainer aspect={4} width={'80%'}>
 
@@ -54,6 +55,7 @@ export default function GraphAudio({ title, eda_file, pox_file, media_label, son
 
 
             </div>
+            
             <div>
                 {media_label[0] !== "" &&
                     <audio controls className='audio'>
