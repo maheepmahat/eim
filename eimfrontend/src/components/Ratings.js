@@ -6,7 +6,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Rating } from '@mui/material';
+import { CircularProgress, Rating } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
 const titles = ['Song', 'Activity', 'Engagement', 'Familiarity', 'Chills', 'Positivity', 'Power', 'Like'];
@@ -56,7 +56,7 @@ export default function Ratings({ found }) {
     else {
         return (
             <div>
-                Loading....
+                <CircularProgress color="primary"/>
             </div>
         )
     }

@@ -19,7 +19,7 @@ export default function GraphAudio({ title, eda_file, pox_file, media_label, son
     return (
         <div className='graphaudio'>
             <Divider variant="middle" style={{ margin: '40px 0px' }}>
-                <Chip label={title} />
+                <Chip label={title} color="primary" />
             </Divider>
             <div>
                 {songName.length > 0 &&
