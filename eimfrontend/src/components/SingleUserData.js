@@ -9,6 +9,14 @@ import Ratings from './Ratings';
 import { Chip, Divider, Typography } from '@mui/material';
 import GraphAudio from './GraphAudio';
 import SmallDataTable from './SmallDataTable';
+import InputLabel from '@mui/material/InputLabel';
+import MenuItem from '@mui/material/MenuItem';
+import FormControl from '@mui/material/FormControl';
+import Select from '@mui/material/Select';
+
+
+
+
 //placeholders 
 var file_id = ["", "", ""];
 var media_label = ["", "", ""];
@@ -18,11 +26,15 @@ var song1, song2, song3;
 var songMetadata = "";
 
 function SingleUserData(props) {
+
+    const [song, setSong] = useState('');
     const {id} = useParams();
     const { readRemoteFile } = usePapaParse();    
     const [subject_data, set_subject_data] = useState([]);
     const [rows, setRows] = useState([]);
     useEffect(() => {
+        document.title = "Explore in more detail!"
+
         fetch("http://localhost:5000/api/trials")
             .then(res => res.json())
             .then(subject_data => { set_subject_data(subject_data); return subject_data; })
@@ -199,6 +211,11 @@ function SingleUserData(props) {
             }
     }
 
+    const handleChange = (event) => {
+        setSong(event.target.value);
+    };
+    
+    
     return (
         <div className="App">
            
@@ -211,13 +228,30 @@ function SingleUserData(props) {
             </div>
             <Typography variant="h4" style={{margin: '10px'}}>Signal Information</Typography>
 
+            {/* TODO: make this component somewhat generic & with fewer parameters + add selection ability + ability to change view*/}
+            {/* <FormControl size="medium">
+            <InputLabel id="demo-simple-select-label">Select Song</InputLabel>
+            <Select
+            labelId="demo-simple-select-label"
+            id="demo-simple-select"
+            value={song}
+            label="Age"
+            onChange={handleChange}
+            >
+            <MenuItem value={1}>First Song</MenuItem>
+            <MenuItem value={2}>Second Song</MenuItem>
+            <MenuItem value={3}>Third Song</MenuItem>
+            </Select>
+        </FormControl> */}
+        
             <GraphAudio title="First Song" eda_file={csv_file1} pox_file={pox_csv_file_small1} media_label={media_label} song={song1}/>
             <GraphAudio title="Second Song" eda_file={csv_file2} pox_file={pox_csv_file_small2} media_label={media_label} song={song2}/>
             <GraphAudio title="Third Song" eda_file={csv_file3} pox_file={pox_csv_file_small3} media_label={media_label} song={song3}/>
-    
+        
         </div>
 
     );
 }
+
 
 export default SingleUserData;

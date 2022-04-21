@@ -12,9 +12,13 @@ export default class SongSelector extends React.Component {
 
     handleSelection(event, value, reason){
         if (reason === 'selectOption'){
+            
             this.setState({
                 selected: value._id
-        }, this.props.setRows(filterDataBasedOnSong(this.state.selected === ''? null: this.state.selected, this.props.rows)))
+        }, () => {
+            console.log(this.state)
+            this.props.setRows(filterDataBasedOnSong(this.state.selected === ''? null: this.state.selected, this.props.rows))})
+        
         }
 
         if (reason === 'clear'){

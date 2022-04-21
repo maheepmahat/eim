@@ -9,6 +9,8 @@ function HomeComponent({numData, setCurrUserId}) {
     const [subject_data, set_subject_data] = useState([]);
     const [rows, setRows] = useState([]);
     useEffect(() =>{
+        document.title = "Welcome to EiM!"
+
         fetch("http://localhost:5000/api/trials")
         .then(res => res.json())
         .then(subject_data =>{set_subject_data(subject_data); return subject_data;})
