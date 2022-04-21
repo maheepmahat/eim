@@ -5,6 +5,7 @@ import './GraphAudio.css';
 // import Waveform from "react-audio-waveform"
 import Wavesurfer from "react-wavesurfer.js";
 import PlayArrowIcon from '@mui/icons-material/PlayArrow';
+import PauseIcon from '@mui/icons-material/Pause';
 
 export default function GraphAudio({ title, eda_file, pox_file, media_label, song, songName}) {
     const [position, setPosition] = useState(0);
@@ -29,7 +30,7 @@ export default function GraphAudio({ title, eda_file, pox_file, media_label, son
                 <ResponsiveContainer aspect={4} width={'80%'}>
 
                     <LineChart data={eda_file}>
-                        {/* <Brush dataKey="adjusted_time" /> */}
+                       
                         <XAxis dataKey="adjusted_time" />
                         abc
                         <YAxis />
@@ -66,6 +67,8 @@ export default function GraphAudio({ title, eda_file, pox_file, media_label, son
             <div className='audio'>
                 <Wavesurfer 
                 src={song}
+                // color='#5e35b1'
+                options={{backgroundColor: "red"}}
                 position={position}
                 onPositionChange={handlePositionChange}
                 onReady={onReadyHandler} 
@@ -77,7 +80,10 @@ export default function GraphAudio({ title, eda_file, pox_file, media_label, son
             </div>
             <div>
                 <IconButton size="large" onClick={() => setPlaying(!playing)}>
-                    <PlayArrowIcon/>
+                    {!playing &&
+                    <PlayArrowIcon/>}
+                    {playing && 
+                    <PauseIcon/>}
                 </IconButton>
             </div>
         </div>

@@ -3,11 +3,17 @@ import {Autocomplete, TextField} from '@mui/material';
 import './SongSelector.css'
 import {filterDataBasedOnSong} from "../data/data";
 //
+
+
 export default class SongSelector extends React.Component {
+
+    
+
     constructor(props) {
         super(props);
         this.state = {selected: ''}
         this.handleSelection = this.handleSelection.bind(this)
+        
     }
 
     handleSelection(event, value, reason){
@@ -20,8 +26,11 @@ export default class SongSelector extends React.Component {
         if (reason === 'clear'){
             this.props.setRows(this.props.rows)
         }
+
+        console.log(this.props.songList[0])
     }
 
+    
 
     render() {
         return <div className="selector">

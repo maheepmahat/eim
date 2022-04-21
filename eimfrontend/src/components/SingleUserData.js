@@ -3,7 +3,6 @@ import { createFakeData, flattenArrayOfJson, songList } from "../data/data";
 import DataTable from "./DataTable";
 import { usePapaParse } from 'react-papaparse';
 import { LineChart, XAxis, YAxis, CartesianGrid, Line, Tooltip, ResponsiveContainer, Legend, Label } from 'recharts'
-import "./table.css"
 import { useParams } from 'react-router-dom'
 import Ratings from './Ratings';
 import { Chip, Divider, Typography } from '@mui/material';

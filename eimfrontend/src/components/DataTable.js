@@ -2,6 +2,8 @@ import * as React from 'react';
 import {DataGrid, GridToolbar} from '@mui/x-data-grid';
 import {Button} from "@mui/material";
 import {BrowserRouter, Link, Route, Routes} from "react-router-dom";
+import { Rating } from '@mui/material';
+import { styled } from '@mui/material/styles';
 
 function getDate(params){
     // let date = new Date(params.row['answers.dob']);
@@ -10,21 +12,32 @@ function getDate(params){
 }
 
 export default function DataTable({rows, setCurrUserId, tableHeight, hideFooter}) {
+    const StyledRating = styled(Rating)({
+        '& .MuiRating-iconFilled': {
+          color: '#78909c',
+        }
+    });
+    
     const columns = [
         {
             field: 'id', headerName: 'User',
             flex: 2,
             renderCell: (params) => (
                 <strong>
-                    <Button
+                    <Button 
                         variant="outlined"
                         color="primary"
                         size="small"
                     >
                         <Link
+                        
                             to={`/user/${params.value}`}
                             onClick={() => setCurrUserId(params.value)}
-                            style={{textDecoration: 'none'}}
+                            style={{textDecoration: 'none', color: 'inherit'}}
+                            variant='body1'
+                            color="primary"
+                            disableRipple
+                            disableFocusRipple
                         >
                             {params.value}
                         </Link>
@@ -104,11 +117,7 @@ export default function DataTable({rows, setCurrUserId, tableHeight, hideFooter}
         },{
             field: 'answers.dob',
             flex: 1,
-            renderCell: (params) => (
-                <p>
-                    {params.value.split('T')[0]}
-                </p>
-            ),
+            valueGetter: getDate,
             headerName: 'DOB',
 
         },{
@@ -142,9 +151,16 @@ export default function DataTable({rows, setCurrUserId, tableHeight, hideFooter}
             editable: false
 
         },
+        {
+            field: 'answers.musical_expertise',
+            flex: 1,
+            headerName: 'Musical Expertise',
+            renderCell: (params) => (
+                <StyledRating readOnly value={params.value}/>
+            ),
+        }
         
     ];
-    
    
     return (
         <>
@@ -154,7 +170,8 @@ export default function DataTable({rows, setCurrUserId, tableHeight, hideFooter}
                 sx={{ m: 8 }}
                 rows={rows}
                 columns={columns2}  
-                hideFooter={true}             
+                hideFooter={true}  
+                disableSelectionOnClick           
             />
             }
             {tableHeight === 800 &&
