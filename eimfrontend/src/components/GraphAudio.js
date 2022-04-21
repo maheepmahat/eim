@@ -18,7 +18,7 @@ export default function GraphAudio({ title, eda_file, pox_file, media_label, son
     const onReadyHandler = () => console.log("done loading!");
     return (
         <div className='graphaudio'>
-            <Divider color="primary" variant="middle" style={{ margin: '40px 0px' }}>
+            <Divider color="primary" variant="middle" style={{ margin: '20px 0px' }}>
                 <Chip label={title} color="primary" />
             </Divider>
             <div>

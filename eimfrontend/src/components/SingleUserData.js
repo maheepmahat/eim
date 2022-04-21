@@ -247,7 +247,7 @@ function SingleUserData(props) {
             <div style={{display: 'flex',  justifyContent:'center', alignItems:'center', padding: '20px 0px'}}>
             <Ratings found={found}/>
             </div>
-            <Typography variant="h4" style={{margin: '10px'}}>Signal Information</Typography>
+            <Typography variant="h4" sx={{m: 2}}>Signal Information</Typography>
 
             {/* TODO: make this component somewhat generic & with fewer parameters + add selection ability + ability to change view*/}
             {/* <FormControl size="medium">
