@@ -75,17 +75,17 @@ export default function GraphAudio({ title, eda_file, pox_file, media_label, son
                 </ResponsiveContainer>
             </div>
             
-            <div>
+          {/*   <div>
                 {media_label[0] !== "" &&
                     <audio controls className='audio'>
                         <source src={song} type="audio/wav" />
                     </audio>
                 }
-            </div>
+            </div> */}
             <div sx={{display: 'flex', justifyContent: 'center'}}>
                 <Wavesurfer sx={{width: '80%'}}
                 src={song}
-                // color='#5e35b1'
+                //color='#5e35b1'
                 options={{backgroundColor: "red"}}
                 position={position}
                 onPositionChange={handlePositionChange}
