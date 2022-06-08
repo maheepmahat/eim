@@ -34,7 +34,8 @@ function SingleUserData(props) {
     useEffect(() => {
         document.title = "Explore in more detail!"
 
-        fetch("http://localhost:5000/api/trials")
+        //fetch("http://gan.cs.vt.edu:5000/api/trials")
+        fetch("http://localhost:5000/api/trials/"+props.experiment_number)
             .then(res => res.json())
             .then(subject_data => { set_subject_data(subject_data); return subject_data; })
             .then(initialData => setRows(flattenArrayOfJson(initialData)))
@@ -45,6 +46,7 @@ function SingleUserData(props) {
     //get the signal id, label and object id for the signal data & files 
     const [signal_id, setSignal_Id] = useState();
     useEffect(() => {
+        //fetch("http://gan.cs.vt.edu:5000/api/signalData/"+props.id)
         fetch("http://localhost:5000/api/signalData/"+props.id)
         .then(res => res.json())
         .then(signal_id =>setSignal_Id(signal_id))
@@ -80,8 +82,11 @@ function SingleUserData(props) {
     }
 
     //set the URL's for the audio call
+    //song1 = "http://gan.cs.vt.edu:5000/api/song/" + media_label[0];
     song1 = "http://localhost:5000/api/song/" + media_label[0];
+    //song2 = "http://gan.cs.vt.edu:5000/api/song/" + media_label[1];
     song2 = "http://localhost:5000/api/song/" + media_label[1];
+    //song3 = "http://gan.cs.vt.edu:5000/api/song/" + media_label[2];
     song3 = "http://localhost:5000/api/song/" + media_label[2];
     
     let csv_file_small1=[];
@@ -94,18 +99,21 @@ function SingleUserData(props) {
     //get the song name and the artist name
     const [songInfo1, set_songInfo1] = useState([]);
     useEffect(() => {
+        //fetch("http://gan.cs.vt.edu:5000/api/songname/"+ media_label[0])
         fetch("http://localhost:5000/api/songname/"+ media_label[0])
         .then(res => res.json())
         .then(songInfo1 =>set_songInfo1(songInfo1))
     },[signal_id]) 
     const [songInfo2, set_songInfo2] = useState([]);
     useEffect(() => {
+        //fetch("http://gan.cs.vt.edu:5000/api/songname/"+ media_label[1])
         fetch("http://localhost:5000/api/songname/"+ media_label[1])
         .then(res => res.json())
         .then(songInfo2 =>set_songInfo2(songInfo2))
     },[signal_id]) 
     const [songInfo3, set_songInfo3] = useState([]);
     useEffect(() => {
+        //fetch("http://gan.cs.vt.edu:5000/api/songname/"+ media_label[2])
         fetch("http://localhost:5000/api/songname/"+ media_label[2])
         .then(res => res.json())
         .then(songInfo3 =>set_songInfo3(songInfo3))
@@ -116,6 +124,7 @@ function SingleUserData(props) {
     const [csv_file1, set_csv_file1] = useState([]);
     useEffect(() => {
         if(file_id[0] !== "") 
+        //readRemoteFile("http://gan.cs.vt.edu:5000/api/signals/"+derived_eda_file[0], {
         readRemoteFile("http://localhost:5000/api/signals/"+derived_eda_file[0], {
             worker: true,
             complete: (results) => {
@@ -136,6 +145,7 @@ function SingleUserData(props) {
     }
     const [csv_file2, set_csv_file2] = useState([]);
     useEffect(() => {
+        //readRemoteFile("http://gan.cs.vt.edu:5000/api/signals/"+derived_eda_file[1], {
         readRemoteFile("http://localhost:5000/api/signals/"+derived_eda_file[1], {
             worker: true,
             complete: (results) => {
@@ -155,6 +165,7 @@ function SingleUserData(props) {
     }
     const [csv_file3, set_csv_file3] = useState([]);
     useEffect(() => {
+        //readRemoteFile("http://gan.cs.vt.edu:5000/api/signals/"+derived_eda_file[2], {
         readRemoteFile("http://localhost:5000/api/signals/"+derived_eda_file[2], {
             worker: true,
             complete: (results) => {
@@ -175,6 +186,7 @@ function SingleUserData(props) {
     //get the pox data file
     const [pox_csv_file1, set_pox_csv_file1] = useState([]);
     useEffect(() => {
+        //readRemoteFile("http://gan.cs.vt.edu:5000/api/signals/"+derived_pox_file[0], {
         readRemoteFile("http://localhost:5000/api/signals/"+derived_pox_file[0], {
             worker: true,
             complete: (results) => {
@@ -194,6 +206,7 @@ function SingleUserData(props) {
     }
     const [pox_csv_file2, set_pox_csv_file2] = useState([]);
     useEffect(() => {
+        //readRemoteFile("http://gan.cs.vt.edu:5000/api/signals/"+derived_pox_file[1], {
         readRemoteFile("http://localhost:5000/api/signals/"+derived_pox_file[1], {
             worker: true,
             complete: (results) => {
@@ -213,6 +226,7 @@ function SingleUserData(props) {
     }
     const [pox_csv_file3, set_pox_csv_file3] = useState([]);
     useEffect(() => {
+        //readRemoteFile("http://gan.cs.vt.edu:5000/api/signals/"+derived_pox_file[2], {
         readRemoteFile("http://localhost:5000/api/signals/"+derived_pox_file[2], {
             worker: true,
             complete: (results) => {

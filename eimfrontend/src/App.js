@@ -3,10 +3,12 @@ import React, { useState, useEffect } from 'react';
 import HomeComponent from "./components/HomeComponent";
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import SingleUserData from "./components/SingleUserData";
+import ExperimentSelector from './components/ExperimentSelector'
 import { AppBar, Button, Toolbar } from "@mui/material";
 import { Box } from '@mui/system';
 import { createTheme } from '@mui/material/styles';
 import { ThemeProvider } from '@emotion/react';
+import { Typography } from '@mui/material';
 
 const theme = createTheme({
   palette: {
@@ -19,7 +21,7 @@ const theme = createTheme({
 
 function App() {
     const [currUserId, setCurrUserId] = useState('')
-
+    const [experiment_num, set_experiment_num] = useState('')
     return (
         <div className="App">
     <ThemeProvider theme={theme}>
@@ -34,9 +36,11 @@ function App() {
 
                     </AppBar>
                 </Box>
+                <div>
+                </div>
                 <Routes>    
-                    <Route exact path={`/user/:id`} element={< SingleUserData id={currUserId} setCurrUserId={setCurrUserId} />}></Route>
-                    <Route exact path='/' element={< HomeComponent numData={100} setCurrUserId={setCurrUserId} />}></Route>
+                    <Route exact path='/' element={< HomeComponent numData={100} setCurrUserId={setCurrUserId} set_experiment_num={set_experiment_num}/>}></Route>
+                    <Route exact path={`/user/:id`} element={< SingleUserData id={currUserId} setCurrUserId={setCurrUserId} experiment_number={experiment_num} />}></Route>
                 </Routes>
             </BrowserRouter>
             </ThemeProvider>

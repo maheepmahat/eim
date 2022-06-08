@@ -17,8 +17,18 @@ router.get('/main', (req, res, next) => {
     .catch(next);
 });
 
-router.get('/trials', (req, res, next) => {
-  Trials.find({experiment:mongoose.Types.ObjectId("5432bd0136ac55e198b91778")})
+router.get('/trials/:experiment_number', (req, res, next) => {
+    console.log("exp_no " + req.params.experiment_number)
+    var experiment8 = "5432bcb136ac55e198b91777"
+    var experiment9 = "5432bd0136ac55e198b91778"
+    var selected_experiment = experiment9 //default
+    if(req.params.experiment_number == undefined){
+        selected_experiment = experiment9
+    }
+    if(req.params.experiment_number == "8"){
+        selected_experiment = experiment8
+    }
+  Trials.find({experiment:mongoose.Types.ObjectId(selected_experiment)})
     .select('answers media')
     .then((data) => res.json(data))
     .catch(next);
@@ -70,7 +80,7 @@ router.get('/signals/:filename', (req, res, next) => {
                 mimeType = mime.getType(file[0].filename);
             }
             //console.log("mimeType 2" + mimeType);
-
+ 
             /* file[0].set({
                 'Content-Type': mimeType,
                 'Content-Disposition': 'attachment; filename=' + file[0].filename

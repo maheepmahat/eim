@@ -1,0 +1,20 @@
+indix is a problem on raw data but in derived data, it doesn't seem to be a problem.
+
+exp 1: 4 songs
+exp 8: 3 songs
+exp 6: 3 songs
+exp 3: 3 songs
+exp 5: 3 songs
+exp 2: 3 songs
+exp 7: 3 songs
+exp 4: 3 songs
+exp 10: 2 songs
+exp 9: 3 songs
+exp 11: 2 songs
+
+inconsistent number of songs per subject
+
+for some people, their basic data is available but the signal data is not. Experiment no. 11 specifically.
+
+In experiment no. 11, for the trials conducted in experiment no. 11, the experiment id for those trials is given of experiment number 10
+
