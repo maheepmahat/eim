@@ -6,8 +6,8 @@ import {flattenArrayOfJson, songList} from "../data/data";
 import { Box } from '@mui/system';
 import { Typography } from '@mui/material';
 
-let url_path = "http://localhost:5000/"
-//let url_path = "http://gan.cs.vt.edu:5000/"
+//let url_path = "http://localhost:5000/"
+let url_path = "http://gan.cs.vt.edu:5000/"
 let default_experiment = ""
 
 function HomeComponent({numData, setCurrUserId, set_experiment_num}) {

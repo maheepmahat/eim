@@ -24,8 +24,8 @@ let derived_pox_file = ["", "", ""];
 let song1, song2, song3;
 let number_of_songs = 2;
 let current_exp = 9;
-let url_path = "http://localhost:5000/"
-//let url_path = "http://gan.cs.vt.edu:5000/"
+//let url_path = "http://localhost:5000/"
+let url_path = "http://gan.cs.vt.edu:5000/"
 
 function SingleUserData(props) {
 
