@@ -68,7 +68,7 @@ export default function GraphAudio({ title, eda_file, pox_file, media_label, son
                         abc
                         <YAxis />
                         <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
-                        <Legend verticalAlign="top" height={36} />
+                        <Legend verticalAlign="top" height={64} />
                         <Tooltip />
                         <Line name="pox (microsiemens)" type="monotone" dataKey="pox_adjusted" stroke="#8884d8" dot={false} />
                     </LineChart>

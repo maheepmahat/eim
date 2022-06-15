@@ -6,24 +6,26 @@ import {flattenArrayOfJson, songList} from "../data/data";
 import { Box } from '@mui/system';
 import { Typography } from '@mui/material';
 
+let url_path = "http://localhost:5000/"
+//let url_path = "http://gan.cs.vt.edu:5000/"
 let default_experiment = ""
+
 function HomeComponent({numData, setCurrUserId, set_experiment_num}) {
 
     //getting the data to fill the home table
     const [subject_data, set_subject_data] = useState([]);
-    const [rows, setRows] = useState([]); 
+    const [rows, setRows] = useState([]);
     const [experiment_number, set_experiment_number] = useState([]);
 
     if(experiment_number != undefined){
         default_experiment = experiment_number._id
-        console.log("default exp , experiment number = " + default_experiment+" "+experiment_number._id)
         set_experiment_num(experiment_number._id)
     }
     useEffect(() =>{
         document.title = "Welcome to EiM!"
-
-        //fetch("http://gan.cs.vt.edu:5000/api/trials")
-        fetch("http://localhost:5000/api/trials/"+experiment_number._id)
+        
+        //getting the data of all of the users for a particular experiment
+        fetch(url_path + "api/trials/"+experiment_number._id)
         .then(res => res.json())
         .then(subject_data =>{set_subject_data(subject_data); return subject_data;})
         .then(initialData => setRows(flattenArrayOfJson(initialData)))
@@ -31,8 +33,7 @@ function HomeComponent({numData, setCurrUserId, set_experiment_num}) {
     //getting the song list
     const [json_data, set_json_data] = useState([]);
     useEffect(() =>{
-        //fetch("http://gan.cs.vt.edu:5000/api/main")
-        fetch("http://localhost:5000/api/main")
+        fetch(url_path + "api/main")
         .then(res => res.json())
         .then(json_data =>set_json_data(json_data))
     }, [])  
@@ -49,7 +50,7 @@ function HomeComponent({numData, setCurrUserId, set_experiment_num}) {
             </Box>
             <ExperimentSelector set_experiment_number={set_experiment_number}/>
             <SongSelector songList={json_data} setRows={setRows} rows={flattenArrayOfJson(subject_data)} />
-            <DataTable rows={rows} setCurrUserId={setCurrUserId} experiment_number={experiment_number} tableHeight={800}/>
+            <DataTable rows={rows} setCurrUserId={setCurrUserId} experiment_number={experiment_number} tableHeight={800} />
         </div>
 
     );

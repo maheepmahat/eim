@@ -5,13 +5,18 @@ import { BrowserRouter, Link, Route, Routes } from "react-router-dom";
 import { Rating } from '@mui/material';
 import { styled } from '@mui/material/styles';
 import { Box } from '@mui/system';
+
+let current_exp = 9;
 function getDate(params) {
     // let date = new Date(params.row['answers.dob']);
     // return  date.getDate()+'/' + (date.getMonth()+1) + '/'+date.getFullYear()
+    if(params.value == undefined){
+        return "NA"
+    }
     return params.value.split('-')[0]
 }
 
-export default function DataTable({ rows, setCurrUserId, tableHeight, hideFooter }) {
+export default function DataTable({ rows, setCurrUserId, experiment_number, tableHeight }) {
     const StyledRating = styled(Rating)({
         '& .MuiRating-iconFilled': {
             color: '#78909c',
@@ -183,7 +188,7 @@ export default function DataTable({ rows, setCurrUserId, tableHeight, hideFooter
                             },
                         }}
                     />
-                }
+                } 
                 {tableHeight === 800 &&
                     <DataGrid
                         sx={{ m: 8 }}
@@ -197,8 +202,9 @@ export default function DataTable({ rows, setCurrUserId, tableHeight, hideFooter
                             NoRowsOverlay: () => {
                                 return(
                                     <Box component="div" sx={{ display: 'flex', p: 20, justifyContent: 'center' }}> 
-                                    <CircularProgress size={'3rem'} color="inherit" /> 
+                                    <Typography variant='body'><CircularProgress size={'3rem'} color="inherit" /> Loading ....</Typography>
                                     </Box>
+                                    
                                 )
                             }
                         }}

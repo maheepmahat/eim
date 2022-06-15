@@ -22,7 +22,10 @@ let media_label = ["", "", ""];
 let derived_eda_file = ["", "", ""];
 let derived_pox_file = ["", "", ""];
 let song1, song2, song3;
-let songMetadata = "";
+let number_of_songs = 2;
+let current_exp = 9;
+let url_path = "http://localhost:5000/"
+//let url_path = "http://gan.cs.vt.edu:5000/"
 
 function SingleUserData(props) {
 
@@ -34,20 +37,18 @@ function SingleUserData(props) {
     useEffect(() => {
         document.title = "Explore in more detail!"
 
-        //fetch("http://gan.cs.vt.edu:5000/api/trials")
-        fetch("http://localhost:5000/api/trials/"+props.experiment_number)
+        fetch(url_path + "api/trials/"+props.experiment_number)
             .then(res => res.json())
             .then(subject_data => { set_subject_data(subject_data); return subject_data; })
             .then(initialData => setRows(flattenArrayOfJson(initialData)))
     }, [])
     //find the row of current user
     const found = subject_data.filter(function (item) { return item._id === props.id; });
-    
+
     //get the signal id, label and object id for the signal data & files 
     const [signal_id, setSignal_Id] = useState();
     useEffect(() => {
-        //fetch("http://gan.cs.vt.edu:5000/api/signalData/"+props.id)
-        fetch("http://localhost:5000/api/signalData/"+props.id)
+        fetch(url_path + "api/signalData/"+props.id)
         .then(res => res.json())
         .then(signal_id =>setSignal_Id(signal_id))
     },[])
@@ -64,31 +65,37 @@ function SingleUserData(props) {
      * timestamps: 47982 -- x axis
      * }
      */
+    if(props.experiment_number != undefined){
+        current_exp = props.experiment_number
+    }
 
     if(signal_id !== undefined) {
         file_id[0] = signal_id[0]['_id'];
         file_id[1] = signal_id[1]['_id'];
-        file_id[2] = signal_id[2]['_id'];
         media_label[0] = signal_id[0]['label'];
         media_label[1] = signal_id[1]['label'];
-        media_label[2] = signal_id[2]['label'];
         derived_eda_file[0] = signal_id[0]['derived_eda_data_file'];
         derived_eda_file[1] = signal_id[1]['derived_eda_data_file'];
-        derived_eda_file[2] = signal_id[2]['derived_eda_data_file'];
-        derived_pox_file[0] = signal_id[2]['derived_pox_data_file'];
-        derived_pox_file[1] = signal_id[2]['derived_pox_data_file'];
-        derived_pox_file[2] = signal_id[2]['derived_pox_data_file'];
-        //songMetadata = songInfo[0]['title'];
+        derived_pox_file[0] = signal_id[0]['derived_pox_data_file'];
+        derived_pox_file[1] = signal_id[1]['derived_pox_data_file'];
+
+        if(signal_id.length == 3){
+            number_of_songs = 3;
+            file_id[2] = signal_id[2]['_id'];
+            media_label[2] = signal_id[2]['label'];
+            derived_eda_file[2] = signal_id[2]['derived_eda_data_file'];
+            derived_pox_file[2] = signal_id[2]['derived_pox_data_file'];
+        }
     }
 
     //set the URL's for the audio call
-    //song1 = "http://gan.cs.vt.edu:5000/api/song/" + media_label[0];
-    song1 = "http://localhost:5000/api/song/" + media_label[0];
-    //song2 = "http://gan.cs.vt.edu:5000/api/song/" + media_label[1];
-    song2 = "http://localhost:5000/api/song/" + media_label[1];
-    //song3 = "http://gan.cs.vt.edu:5000/api/song/" + media_label[2];
-    song3 = "http://localhost:5000/api/song/" + media_label[2];
-    
+    song1 = url_path + "api/song/" + media_label[0];
+    song2 = url_path + "api/song/" + media_label[1];
+    if(signal_id != undefined){
+        if(signal_id.length == 3){
+            song3 = url_path + "api/song/" + media_label[2];
+        }
+    }
     let csv_file_small1=[];
     let csv_file_small2=[];
     let csv_file_small3=[];
@@ -99,33 +106,28 @@ function SingleUserData(props) {
     //get the song name and the artist name
     const [songInfo1, set_songInfo1] = useState([]);
     useEffect(() => {
-        //fetch("http://gan.cs.vt.edu:5000/api/songname/"+ media_label[0])
-        fetch("http://localhost:5000/api/songname/"+ media_label[0])
+        fetch(url_path + "api/songname/"+ media_label[0])
         .then(res => res.json())
         .then(songInfo1 =>set_songInfo1(songInfo1))
     },[signal_id]) 
     const [songInfo2, set_songInfo2] = useState([]);
     useEffect(() => {
-        //fetch("http://gan.cs.vt.edu:5000/api/songname/"+ media_label[1])
-        fetch("http://localhost:5000/api/songname/"+ media_label[1])
+        fetch(url_path + "api/songname/"+ media_label[1])
         .then(res => res.json())
         .then(songInfo2 =>set_songInfo2(songInfo2))
     },[signal_id]) 
     const [songInfo3, set_songInfo3] = useState([]);
     useEffect(() => {
-        //fetch("http://gan.cs.vt.edu:5000/api/songname/"+ media_label[2])
-        fetch("http://localhost:5000/api/songname/"+ media_label[2])
+        fetch(url_path + "api/songname/"+ media_label[2])
         .then(res => res.json())
         .then(songInfo3 =>set_songInfo3(songInfo3))
     },[signal_id]) 
-    console.log("songInfo " + songInfo1);
 
     //get the eda file
     const [csv_file1, set_csv_file1] = useState([]);
     useEffect(() => {
         if(file_id[0] !== "") 
-        //readRemoteFile("http://gan.cs.vt.edu:5000/api/signals/"+derived_eda_file[0], {
-        readRemoteFile("http://localhost:5000/api/signals/"+derived_eda_file[0], {
+        readRemoteFile(url_path + "api/signals/"+derived_eda_file[0], {
             worker: true,
             complete: (results) => {
                 set_csv_file1(results.data);
@@ -134,7 +136,7 @@ function SingleUserData(props) {
             header: true 
         });
     },[signal_id])
-    //dividing the file to 500 parts and choosing 1 datapoint from each part.
+    //dividing the file to 500 parts and choosing 1 datapoint from each part. (downsampling)
     if(signal_id !== undefined && csv_file1.length > 0) {
         
         var subset_size = Math.floor(csv_file1.length / 800);
@@ -145,8 +147,7 @@ function SingleUserData(props) {
     }
     const [csv_file2, set_csv_file2] = useState([]);
     useEffect(() => {
-        //readRemoteFile("http://gan.cs.vt.edu:5000/api/signals/"+derived_eda_file[1], {
-        readRemoteFile("http://localhost:5000/api/signals/"+derived_eda_file[1], {
+        readRemoteFile(url_path + "api/signals/"+derived_eda_file[1], {
             worker: true,
             complete: (results) => {
                 set_csv_file2(results.data);
@@ -165,8 +166,7 @@ function SingleUserData(props) {
     }
     const [csv_file3, set_csv_file3] = useState([]);
     useEffect(() => {
-        //readRemoteFile("http://gan.cs.vt.edu:5000/api/signals/"+derived_eda_file[2], {
-        readRemoteFile("http://localhost:5000/api/signals/"+derived_eda_file[2], {
+        readRemoteFile(url_path + "api/signals/"+derived_eda_file[2], {
             worker: true,
             complete: (results) => {
                 set_csv_file3(results.data);
@@ -186,8 +186,7 @@ function SingleUserData(props) {
     //get the pox data file
     const [pox_csv_file1, set_pox_csv_file1] = useState([]);
     useEffect(() => {
-        //readRemoteFile("http://gan.cs.vt.edu:5000/api/signals/"+derived_pox_file[0], {
-        readRemoteFile("http://localhost:5000/api/signals/"+derived_pox_file[0], {
+        readRemoteFile(url_path + "api/signals/"+derived_pox_file[0], {
             worker: true,
             complete: (results) => {
                 set_pox_csv_file1(results.data);
@@ -206,8 +205,7 @@ function SingleUserData(props) {
     }
     const [pox_csv_file2, set_pox_csv_file2] = useState([]);
     useEffect(() => {
-        //readRemoteFile("http://gan.cs.vt.edu:5000/api/signals/"+derived_pox_file[1], {
-        readRemoteFile("http://localhost:5000/api/signals/"+derived_pox_file[1], {
+        readRemoteFile(url_path + "api/signals/"+derived_pox_file[1], {
             worker: true,
             complete: (results) => {
                 set_pox_csv_file2(results.data);
@@ -226,8 +224,7 @@ function SingleUserData(props) {
     }
     const [pox_csv_file3, set_pox_csv_file3] = useState([]);
     useEffect(() => {
-        //readRemoteFile("http://gan.cs.vt.edu:5000/api/signals/"+derived_pox_file[2], {
-        readRemoteFile("http://localhost:5000/api/signals/"+derived_pox_file[2], {
+        readRemoteFile(url_path + "api/signals/"+derived_pox_file[2], {
             worker: true,
             complete: (results) => {
                 set_pox_csv_file3(results.data);
@@ -254,6 +251,7 @@ function SingleUserData(props) {
     return (
         <div className="App">
            
+            <Typography variant="h4" style={{margin: '20px'}}>Experiment no. {current_exp}</Typography>
             <Typography variant="h4" style={{margin: '20px'}}>User with id of {id}</Typography>
 
             <DataTable rows={flattenArrayOfJson(found)} setCurrUserId={props.setCurrUserId} tableHeight={160} />
@@ -281,8 +279,9 @@ function SingleUserData(props) {
         
             <GraphAudio title="First Song" eda_file={csv_file1} pox_file={pox_csv_file_small1} media_label={media_label} song={song1} songName={songInfo1}/>
             <GraphAudio title="Second Song" eda_file={csv_file2} pox_file={pox_csv_file_small2} media_label={media_label} song={song2} songName={songInfo2}/>
+            {number_of_songs == 3 &&
             <GraphAudio title="Third Song" eda_file={csv_file3} pox_file={pox_csv_file_small3} media_label={media_label} song={song3} songName={songInfo3}/>
-        
+            }
         </div>
 
     );

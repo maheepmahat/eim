@@ -11,6 +11,18 @@ const mime = require('mime');
 
 let db = mongoose.connection;
 
+var experiment11 = "570eafd5b74655eacecf8930"
+var experiment10 = "570eae52b74655eacecf892e"
+var experiment9 = "5432bd0136ac55e198b91778"
+var experiment8 = "5432bcb136ac55e198b91777"
+var experiment7 = "5432bc4a36ac55e198b91776"
+var experiment6 = "537d0645df872bb71e4deaaa"
+var experiment5 = "537d063bdf872bb71e4deaa9"
+var experiment4 = "537d0633df872bb71e4deaa8"
+var experiment3 = "537d0629df872bb71e4deaa7"
+var experiment2 = "537d0621df872bb71e4deaa6"
+var experiment1 = "537d05bddf872bb71e4deaa5"
+
 router.get('/main', (req, res, next) => {
   Main.find({})
     .then((data) => res.json(data))
@@ -19,19 +31,60 @@ router.get('/main', (req, res, next) => {
 
 router.get('/trials/:experiment_number', (req, res, next) => {
     console.log("exp_no " + req.params.experiment_number)
-    var experiment8 = "5432bcb136ac55e198b91777"
-    var experiment9 = "5432bd0136ac55e198b91778"
+
     var selected_experiment = experiment9 //default
+
     if(req.params.experiment_number == undefined){
         selected_experiment = experiment9
     }
     if(req.params.experiment_number == "8"){
         selected_experiment = experiment8
     }
-  Trials.find({experiment:mongoose.Types.ObjectId(selected_experiment)})
-    .select('answers media')
-    .then((data) => res.json(data))
-    .catch(next);
+    else if(req.params.experiment_number == "10"){
+        selected_experiment = experiment10
+    }
+    else if(req.params.experiment_number == "11"){
+        selected_experiment = experiment11
+    }
+    else if(req.params.experiment_number == "7"){
+        selected_experiment = experiment7
+    }
+    else if(req.params.experiment_number == "6"){
+        selected_experiment = experiment6
+    }
+    else if(req.params.experiment_number == "5"){
+        selected_experiment = experiment5
+    }
+    else if(req.params.experiment_number == "4"){
+        selected_experiment = experiment4
+    }
+    else if(req.params.experiment_number == "3"){
+        selected_experiment = experiment3
+    }
+    else if(req.params.experiment_number == "2"){
+        selected_experiment = experiment2
+    }
+    else if(req.params.experiment_number == "1"){
+        selected_experiment = experiment1
+    }
+    if(req.params.experiment_number == "10"){
+        Trials.find({'metadata.location':"taipei_city"})
+        .select('answers media')
+        .then((data) => res.json(data))
+        .catch(next);
+    }
+    if(req.params.experiment_number == "11"){
+        Trials.find({'metadata.location':"taichung_city"})
+        .select('answers media')
+        .then((data) => res.json(data))
+        .catch(next);
+    }
+    else{
+      Trials.find({experiment:mongoose.Types.ObjectId(selected_experiment)})
+        .select('answers media')
+        .then((data) => res.json(data))
+        .catch(next);
+    }
 });
 router.get('/songname/:label', (req, res, next) => {
   var extractLabel = req.params.label
